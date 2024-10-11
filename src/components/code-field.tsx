@@ -1,13 +1,16 @@
 import { CircleAlert, ArrowLeft, Bot, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Editor from "@monaco-editor/react";
+import { useNavigate } from 'react-router-dom';
 
 export default function CodeField() {
+  const navigate = useNavigate();
+
   return (
     <div className="grid h-screen w-full pl-[53px]">
       <aside className="fixed left-0 z-20 flex flex-col h-full border-r inset-y">
         <div className="p-2 border-b">
-          <Button variant="outline" size="icon" aria-label="Home">
+          <Button variant="outline" size="icon" aria-label="Home" onClick={() => navigate(-1)}>
             <ArrowLeft className="size-6 " />
           </Button>
         </div>
@@ -34,19 +37,19 @@ export default function CodeField() {
           >
             <div className="grid items-start w-full gap-6">
               <fieldset className="grid gap-6 p-4 border rounded-lg">
-                <legend className="px-1 -ml-1 text-sm font-medium">문제</legend>
+                <legend className="inline-block px-1 -ml-1 text-sm font-medium">문제</legend>
                 어쩌고 저쩌고 abababab 이런식으로 정렬되면 행운의 숫자열임
               </fieldset>
 
               <fieldset className="grid gap-6 p-4 border rounded-lg">
-                <legend className="px-1 -ml-1 text-sm font-medium">
+                <legend className="inline-block px-1 -ml-1 text-sm font-medium">
                   범위
                 </legend>
                 {"N <= 20"}
               </fieldset>
               
               <fieldset className="grid gap-6 p-4 border rounded-lg">
-                <legend className="px-1 -ml-1 text-sm font-medium">
+                <legend className="inline-block px-1 -ml-1 text-sm font-medium">
                   제한
                 </legend>
                 풀이 시간 : 1초 <br/>

@@ -5,6 +5,7 @@ import ChallengesPage from './components/challenges';
 import MyPage from './components/mypage';
 import Blogs from './components/blogs';
 import Repository from './components/repository';
+import Login from './components/login';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/mypage" element={<MyPage/>} />
           <Route path="/blogs" element={<Blogs/>} />
           <Route path="/repo" element={<Repository/>} />
+          <Route path="/login" element={<Login/>} />
         </Routes>
       </Router>
     </>

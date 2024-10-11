@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+
 export default function Footer() {
   const navigationItems = [
     {
@@ -15,11 +17,11 @@ export default function Footer() {
         },
         {
             title: "블로그2",
-            href: "#",
+            href: "/",
           },
           {
             title: "블로그3",
-            href: "#",
+            href: "/",
           },
       ],
     },
@@ -29,15 +31,15 @@ export default function Footer() {
       items: [
         {
           title: "김승혁 콜랩",
-          href: "#",
+          href: "/",
         },
         {
             title: "김승혁 깃헙",
-            href: "#",
+            href: "/",
         },
         {
             title: "깃헙2",
-            href: "#",
+            href: "/",
         },
       ],
     },
@@ -76,26 +78,26 @@ export default function Footer() {
               >
                 <div className="flex flex-col gap-2">
                   {item.href ? (
-                    <a
-                      href={item.href}
+                    <Link
+                      to={item.href}
                       className="flex items-center justify-between"
                     >
                       <span className="text-xl">{item.title}</span>
-                    </a>
+                    </Link>
                   ) : (
                     <p className="text-xl">{item.title}</p>
                   )}
                   {item.items &&
                     item.items.map((subItem) => (
-                      <a
+                      <Link
                         key={subItem.title}
-                        href={subItem.href}
+                        to={subItem.href}
                         className="flex items-center justify-between"
                       >
                         <span className="text-background/75 dark:text-white">
                           {subItem.title}
                         </span>
-                      </a>
+                      </Link>
                     ))}
                 </div>
               </div>

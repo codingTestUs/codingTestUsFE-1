@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Code, GraduationCap, Search } from "lucide-react";
+import { Code, GraduationCap } from "lucide-react";
 import {
   Pagination,
   PaginationContent,
@@ -29,7 +29,11 @@ import {
 import Navbar from "./nav-bar";
 import Footer from "./footer";
 
+import CodeField from "./code-field";
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+
 export default function ChallengesPage() {
+  const navigate = useNavigate()
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -107,7 +111,7 @@ export default function ChallengesPage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full">Start Challenge</Button>
+                <Button className="w-full" onClick={() => navigate('/codefield')}>Start Challenge</Button>
               </CardFooter>
             </Card>
           ))}
