@@ -19,7 +19,7 @@ export default function Login() {
                 Enter your email below to login to your account
               </p>
             </div>
-            <div className="grid gap-4">
+            {/* <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -41,7 +41,7 @@ export default function Login() {
               <Button variant="outline" className="w-full">
                 Login with Google
               </Button>
-            </div>
+            </div> */}
             <div className="mt-4 text-sm text-center">
               Don&apos;t have an account? Sign up
             </div>

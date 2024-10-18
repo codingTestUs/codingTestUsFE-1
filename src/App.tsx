@@ -4,7 +4,6 @@ import CodeField from "./components/code-field";
 import ChallengesPage from './components/challenges';
 import MyPage from './components/mypage';
 import Blogs from './components/blogs';
-import Repository from './components/repository';
 import Login from './components/login';
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
           <Route path="/challenges" element={<ChallengesPage/>} />
           <Route path="/mypage" element={<MyPage/>} />
           <Route path="/blogs" element={<Blogs/>} />
-          <Route path="/repo" element={<Repository/>} />
           <Route path="/login" element={<Login/>} />
         </Routes>
       </Router>
