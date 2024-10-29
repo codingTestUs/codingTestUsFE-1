@@ -11,7 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const TeamMembers = () => {
   const teamMembers = [
     {
-      name: "John Doe",
+      name: "1212",
       role: "CEO",
       description: "Visionary leader with 10+ years of experience in tech.",
       image: "/",
@@ -61,15 +61,16 @@ const TeamMembers = () => {
 export default function Blogs() {
   return (
     <>
-      <Navbar />
-
-      {/* Scrollable Container with Snap */}
       <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
-        <div className="snap-start h-screen"> {/* Team Members Section */}
+        
+        {/* First Section: Navbar + Team Members */}
+        <div className="snap-start h-screen flex flex-col">
+          <Navbar />
           <TeamMembers />
         </div>
 
-        <div className="snap-start h-screen"> {/* Blog Section */}
+        {/* Blog Section */}
+        <div className="snap-start h-screen">
           <div className="w-full py-20 lg:py-20">
             <div className="container flex flex-col mx-auto gap-14">
               <div className="flex flex-col w-full gap-8 sm:flex-row sm:justify-between sm:items-center">
@@ -95,7 +96,8 @@ export default function Blogs() {
           </div>
         </div>
 
-        <div className="snap-start h-screen"> {/* Repository Section */}
+        {/* Repository Section */}
+        <div className="snap-start h-screen">
           <div className="w-full py-20 lg:py-5">
             <div className="container mx-auto">
               <div className="flex gap-4 py-20 lg:py-40 flex-col items-start">
@@ -129,9 +131,12 @@ export default function Blogs() {
             </div>
           </div>
         </div>
-      </div>
 
-      <Footer />
+        {/* Last Section: Footer */}
+        <div className="snap-start flex flex-col">
+          <Footer />
+        </div>
+      </div>
     </>
   );
 }
