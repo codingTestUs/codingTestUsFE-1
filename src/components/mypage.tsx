@@ -3,19 +3,17 @@ import Footer from "./footer";
 
 "use client"
 
-import { useState } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart, Bar, BarChart, CartesianGrid, XAxis, Line, LineChart, Label, Pie, PieChart } from "recharts"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-import { CalendarIcon, CodeIcon, MailIcon, PencilIcon, TrashIcon, Check } from "lucide-react"
+import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart, Bar, BarChart, CartesianGrid, XAxis, Line, LineChart, Label, Pie, PieChart } from "recharts";
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { CalendarIcon, CodeIcon, MailIcon, PencilIcon, TrashIcon, Check } from "lucide-react";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input"; // Import Input component
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 
 // Mock user data
 const user = {
@@ -25,14 +23,14 @@ const user = {
   solvedProblems: 150,
   preferredLanguage: "JavaScript",
   avatarUrl: "/placeholder.svg?height=100&width=100",
-}
+};
 
 // Mock badge data
 const badges = [
   { name: "Problem Solver", level: "Gold", description: "Solved 100+ problems" },
   { name: "Streak Master", level: "Silver", description: "30-day solving streak" },
   { name: "Language Expert", level: "Bronze", description: "Mastered 3 languages" },
-]
+];
 
 // 유형별 차트
 const categoryChartData = [
@@ -42,7 +40,7 @@ const categoryChartData = [
   { category: "Greedy", me: 173, average: 160 },
   { category: "DFSBFS", me: 160, average: 190 },
   { category: "Hash", me: 174, average: 204 },
-]
+];
 const categoryChartConfig = {
   me: {
     label: "me",
@@ -52,17 +50,14 @@ const categoryChartConfig = {
     label: "average",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig
-// 유형별 차트
-
+} satisfies ChartConfig;
 
 // 난이도 차트
 const difficultyChartData = [
   { difficulty: "하", me: 90, average: 80 },
   { difficulty: "중", me: 75, average: 60 },
   { difficulty: "상", me: 30, average: 50 },
-
-]
+];
 const difficultyChartConfig = {
   desktop: {
     label: "me",
@@ -72,15 +67,13 @@ const difficultyChartConfig = {
     label: "average",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig
-// 난이도 차트
-
+} satisfies ChartConfig;
 
 // 언어별 성공 횟수
 const langChartData = [
   { lang: "Java", solved: 275, fill: "var(--color-java)" },
   { lang: "Python", solved: 200, fill: "var(--color-python)" },
-]
+];
 const langChartConfig = {
   solved: {
     label: "Solved",
@@ -93,8 +86,7 @@ const langChartConfig = {
     label: "Python",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig
-// 언어별 성공 횟수
+} satisfies ChartConfig;
 
 // 요일별 성공 횟수
 const dailyChartData = [
@@ -105,7 +97,7 @@ const dailyChartData = [
   { date: "2024-10-21", me: 73, average: 190 },
   { date: "2024-10-22", me: 209, average: 130 },
   { date: "2024-10-23", me: 214, average: 140 },
-]
+];
 const dailyChartConfig = {
   me: {
     label: "me",
@@ -115,11 +107,11 @@ const dailyChartConfig = {
     label: "average",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig
-// 요일별 성공 횟수
-
+} satisfies ChartConfig;
 
 export default function MyPage() {
+  const [nickname, setNickname] = useState(user.nickname);
+  const [email, setEmail] = useState(user.email);
 
   return (
     <>
@@ -160,17 +152,76 @@ export default function MyPage() {
                 </p>
               </div>
               <div className="flex justify-between pt-5">
-                <Button className="text-bold">
-                  <PencilIcon className="w-4 h-4 mr-2" />
-                  Edit Profile
-                </Button>
-                <Button variant="destructive" className="text-bold">
-                  <TrashIcon className="w-4 h-4 mr-2" />
-                  Delete Account
-                </Button>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button className="text-bold">
+                      <PencilIcon className="w-4 h-4 mr-2" />
+                      Edit Profile
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent>
+                    <SheetHeader>
+                      <SheetTitle>Edit Profile</SheetTitle>
+                      <SheetDescription>
+                        Make changes to your profile here. Click save when you're done.
+                      </SheetDescription>
+                    </SheetHeader>
+                    <div className="grid gap-4 py-4">
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="nickname" className="text-right">
+                          Nickname
+                        </Label>
+                        <Input id="nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} className="col-span-3" />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="email" className="text-right">
+                          Email
+                        </Label>
+                        <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="col-span-3" />
+                      </div>
+                    </div>
+                    <SheetFooter>
+                      <SheetClose asChild>
+                        <Button type="button" onClick={() => {
+                          // 여기서 저장 로직을 처리
+                          console.log("Nickname:", nickname, "Email:", email);
+                          // 저장 로직 추가
+                        }}>
+                          Save changes
+                        </Button>
+                      </SheetClose>
+                    </SheetFooter>
+                  </SheetContent>
+                </Sheet>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" className="text-bold">
+                      <TrashIcon className="w-4 h-4 mr-2" />
+                      Delete Account
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => {
+                        // 계정 삭제 로직을 여기에 추가
+                        console.log("Account deleted");
+                      }}>
+                        Continue
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             </CardContent>
           </Card>
+
 
           {/* User Badges */}
           <Card>
@@ -394,6 +445,7 @@ export default function MyPage() {
         </Card>
       </div>
       <Footer />
-    </>
+
+      </>
   )
 }
