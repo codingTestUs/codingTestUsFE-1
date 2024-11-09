@@ -1,46 +1,28 @@
 import { Button } from "@/components/ui/button";
-import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "./mode-toggle";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Github } from "lucide-react";
+import { useLoginStateSync } from "@/state"; // 커스텀 훅 불러오기
+import axios from 'axios';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false); // 로그인 상태 관리
+  const [isLoggedIn, setIsLoggedIn] = useLoginStateSync();
 
-  React.useEffect(() => {
-    // 로그인 상태를 sessionStorage에서 확인
-    const storedLoginStatus = sessionStorage.getItem("isLoggedIn");
-    if (storedLoginStatus) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  const handleLogin = () => {
-    // 로그인 로직 추가 (API 호출 등)
-    setIsLoggedIn(true); // 로그인 성공 시 상태 업데이트
-    sessionStorage.setItem("isLoggedIn", true); // 세션에 로그인 상태 저장
-  };
-
-  const handleSignIn = async () => {
-    // GitHub 인증 페이지로 이동
+  const handleSignIn = () => {
     window.location.href = "http://150.230.251.225/oauth2/authorization/github";
-    console.log("Attempting to log in...");
   };
 
-  const handleLogout = () => {
-    // 로그아웃 처리: 세션 스토리지에서 로그인 상태 제거
-    sessionStorage.removeItem("isLoggedIn");
-    console.log("Logged out successfully, session data removed");
-    setIsLoggedIn(false); // 상태 업데이트
-    window.location.href = "/"; // 홈으로 리다이렉션
+  const handleLogout = async () => {
+    try {
+      await axios.get("/logout");
+      setIsLoggedIn(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout request:", error);
+    }
   };
 
   return (
@@ -92,7 +74,7 @@ export default function Navbar() {
                         <Github className="mr-2 h-4 w-4" />
                         Github
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="flex-1 justify-center" onClick={handleLogin}>
+                      <DropdownMenuItem className="flex-1 justify-center">
                         <span className="text-lg">G</span> &nbsp; Google
                       </DropdownMenuItem>
                     </div>
