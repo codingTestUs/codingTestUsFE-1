@@ -34,9 +34,6 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="justify-center flex-1 hidden space-x-8 md:flex">
-            <Link to="/" className="font-medium text-md hover:underline">
-              Features
-            </Link>
             <Link to="/challenges" className="font-medium text-md hover:underline">
               Problems
             </Link>

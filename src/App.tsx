@@ -20,7 +20,8 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Landing />} />
-                    <Route path="/codefield" element={<CodeField />} />
+                    <Route path="/codefield" element={<PrivateRoute><CodeField /></PrivateRoute>} />
+                    <Route path="/codefield2" element={<CodeField />} />
                     <Route path="/challenges" element={<ChallengesPage />} />
                     <Route path="/mypage" element={<PrivateRoute><MyPage /></PrivateRoute>} />
                     <Route path="/blogs" element={<Blogs />} />
