@@ -148,14 +148,14 @@ export default function MyPage() {
                 </p>
                 <p className="flex items-center">
                   <CodeIcon className="w-4 h-4 mr-2" />
-                  Preferred Language: {user.preferredLanguage}
+                  Preferred Language: Java
                 </p>
               </div>
               <div className="flex justify-between pt-5">
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button className="text-bold">
-                      <PencilIcon className="w-4 h-4 mr-2" />
+                      <PencilIcon className="w-4 h-4" />
                       Edit Profile
                     </Button>
                   </SheetTrigger>
@@ -163,30 +163,27 @@ export default function MyPage() {
                     <SheetHeader>
                       <SheetTitle>Edit Profile</SheetTitle>
                       <SheetDescription>
-                        Make changes to your profile here. Click save when you're done.
+                        닉네임 바꾸기
                       </SheetDescription>
                     </SheetHeader>
                     <div className="grid gap-4 py-4">
                       <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="nickname" className="text-right">
+                        <Label className="text-right">
                           Nickname
                         </Label>
                         <Input id="nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} className="col-span-3" />
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="email" className="text-right">
-                          Email
-                        </Label>
-                        <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="col-span-3" />
-                      </div>
+
                     </div>
                     <SheetFooter>
                       <SheetClose asChild>
-                        <Button type="button" onClick={() => {
+                        <Button onClick={() => {
                           // 여기서 저장 로직을 처리
                           console.log("Nickname:", nickname, "Email:", email);
                           // 저장 로직 추가
-                        }}>
+                        }}
+                          className="text-white"
+                        >
                           Save changes
                         </Button>
                       </SheetClose>
@@ -196,25 +193,25 @@ export default function MyPage() {
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button variant="destructive" className="text-bold">
-                      <TrashIcon className="w-4 h-4 mr-2" />
+                      <TrashIcon className="w-4 h-4" />
                       Delete Account
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                      <AlertDialogTitle>진짜 지울거임?</AlertDialogTitle>
                       <AlertDialogDescription>
                         This action cannot be undone. This will permanently delete your account and remove your data from our servers.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => {
+                      <AlertDialogCancel onClick={() => {
                         // 계정 삭제 로직을 여기에 추가
                         console.log("Account deleted");
                       }}>
                         Continue
-                      </AlertDialogAction>
+                      </AlertDialogCancel>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -247,10 +244,10 @@ export default function MyPage() {
           </Card>
         </div>
 
-        {/* User Statistics */}
+        {/* My Statistics */}
         <Card className="w-full">
           <CardHeader>
-            <CardTitle className="text-3xl text-bold">User Statistics</CardTitle>
+            <CardTitle className="text-3xl text-bold">My Statistics</CardTitle>
             <CardDescription>Your coding activity and progress</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -446,6 +443,6 @@ export default function MyPage() {
       </div>
       <Footer />
 
-      </>
+    </>
   )
 }

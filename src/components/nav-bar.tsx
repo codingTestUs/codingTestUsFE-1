@@ -37,7 +37,7 @@ export default function Navbar() {
             <Link to="/challenges" className="font-medium text-md hover:underline">
               Problems
             </Link>
-            <Link to="/" className="font-medium text-md hover:underline">
+            <Link to="/ranking" className="font-medium text-md hover:underline">
               Rank
             </Link>
             <Link to="/blogs" className="font-medium text-md hover:underline">
