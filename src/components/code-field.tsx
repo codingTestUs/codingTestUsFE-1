@@ -18,12 +18,13 @@ import {
 export default function CodeField() {
   const navigate = useNavigate();
 
-  const [code, setCode] = useState(
-    `public class Solution { 
-        public static String[] main(String a, Integer[] b) { 
-            System.out.println("Hell World!!😈"); 
-        } 
-    }`);
+  const javaCode =   `public class Solution { 
+    public static void main(String[] args) { 
+        System.out.println("Hell World!😈"); 
+    } 
+}`
+
+  const [code, setCode] = useState(javaCode);
 
   const handleEditorChange = (value: string | undefined) => {
     if (value) {
@@ -33,13 +34,7 @@ export default function CodeField() {
   };
 
   const resetAnswer = () => {
-    setCode(
-      `public class Solution { 
-        public static String[] main(String a, Integer[] b) { 
-            System.out.println("Hell World!!😈"); 
-        } 
-    }`
-    )
+    setCode(javaCode)
   }
 
   const submitCode = () => {
@@ -121,9 +116,10 @@ export default function CodeField() {
                 readOnly: false,
                 minimap: { enabled: false },
               }}
-              height={"80%"}
+              height={"70%"}
               onChange={handleEditorChange}
             />
+
             <div className="flex mt-5">
               <AlertDialog>
                 <AlertDialogTrigger asChild>
@@ -140,13 +136,12 @@ export default function CodeField() {
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogAction className="text-bold" onClick={resetAnswer}>
-                           Reset 
+                      Reset
                     </AlertDialogAction>
                     <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
-
 
               <AlertDialog>
                 <AlertDialogTrigger asChild>
@@ -168,9 +163,27 @@ export default function CodeField() {
                 </AlertDialogContent>
               </AlertDialog>
 
-              <Button type="submit" className="gap-1.5 ml-3 dark:text-white">
-                <Check className="text-green-500" />Submit
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button className="gap-1.5 ml-3 dark:text-white">
+                    <Check className="text-green-500" />Submit
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>제출</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      ㄱㄱ
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogAction className="text-bold">
+                      ㄱㄱ
+                    </AlertDialogAction>
+                    <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
 
           </div>

@@ -50,9 +50,9 @@ export default function RankingPage() {
     return (
         <>
             <Navbar />
-            <div className='bg-gradient-to-br from-white to-yellow-400 dark:bg-gradient-to-br dark:from-blue-900 dark:to-slate-900'>
+           
                 <div className="min-h-screen flex items-center justify-center p-4 ">
-                    <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8 w-full max-w-2xl">
+                    <div className="bg-gray-300 bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8 w-full max-w-2xl">
                         <h1 className="text-5xl font-bold text-center mb-8">Solved Rankings</h1>
                         <div className="flex justify-center space-x-6 mb-6">
                             <div className="flex items-center space-x-2">
@@ -75,7 +75,7 @@ export default function RankingPage() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className="bg-white bg-opacity-20 rounded-lg p-4 flex items-center justify-between"
+                                    className="bg-amber-200 dark:bg-slate-500 bg-opacity-20 rounded-lg p-4 flex items-center justify-between"
                                 >
                                     <div className="flex items-center space-x-4 px-2">
                                         {index > 2 && (
@@ -91,7 +91,7 @@ export default function RankingPage() {
                     </div>
                 </div>
 
-            </div>
+            
             <Footer />
         </>
     )
