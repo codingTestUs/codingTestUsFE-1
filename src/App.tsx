@@ -9,7 +9,7 @@ import MyPage from './components/mypage';
 import Blogs from './components/blogs';
 import Login from './components/login';
 import LoginCheck from '@/controllers/login-success';
-import PrivateRoute from '@/components/private-route';
+import PrivateRoute from '@/controllers/private-route.tsx';
 import RankingPage from './components/ranking';
 
 function App() {
