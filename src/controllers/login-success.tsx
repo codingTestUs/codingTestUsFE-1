@@ -27,7 +27,7 @@ export default function LoginSuccess() {
     // key 값을 이용하여 /user/token 요청 후 JWT 발급
      const getJWT = async (key: string) => {
         try {
-            const response = await fetch("http://150.230.251.225/user/token", {
+            const response = await fetch("https://api.craftlogic.site/user/token", {
                 method: "GET",
                 headers: {
                     "Key": key,  // 'Key' 헤더에 key 값 포함

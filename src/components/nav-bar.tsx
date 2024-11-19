@@ -12,7 +12,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useLoginStateSync();
 
   const handleSignIn = () => {
-    window.location.href = "http://150.230.251.225/oauth2/authorization/github";
+      window.location.href = "https://api.craftlogic.site/oauth2/authorization/github";
   };
 
   const handleLogout = async () => {

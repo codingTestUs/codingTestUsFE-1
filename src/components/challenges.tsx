@@ -44,6 +44,7 @@ import Footer from "./footer";
 import { useLoginStateSync } from "@/state";
 
 export default function ChallengesPage() {
+
   const [isLoggedIn, setIsLoggedIn] = useLoginStateSync();
   const [problemList, setProblemList] = useState<Item[]>([]);
   const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태 추가
@@ -51,18 +52,19 @@ export default function ChallengesPage() {
   const navigate = useNavigate();
 
   const handleSignIn = () => {
-    window.location.href = "http://150.230.251.225/oauth2/authorization/github";
+      window.location.href = "https://api.craftlogic.site/oauth2/authorization/github";
   };
 
   // 문제 item의 타입 정의
-  interface Item {
+    interface Item {
+       id: string;
     title: string;
     level: string;
     correctRate: number;
   }
 
   // 전체 리스트 출력
-  // http://150.230.251.225/problem/list?page=&size=&sort=&title=&level=
+  // https://api.craftlogic.site/problem/list?page=&size=&sort=&title=&level=
 
   // 코트 필드로 넘어가려면 문제 id 필요
   // 조건 검색 구현 해야됨 (Search 구현, level select 구현, sort는 값이 없어서 현재 안됨)
@@ -71,20 +73,24 @@ export default function ChallengesPage() {
 
     // 선택된 필터 값에 따라 level을 설정
     let level = '';
-    if (levelFilter === '1') {
-      level = '1';  // 레벨 1
-    } else if (levelFilter === '2') {
-      level = '2';  // 레벨 2
-    } else if (levelFilter === '3') {
-      level = '3';  // 레벨 3
-    } else if (levelFilter === '4') {
-      level = '4';  // 레벨 4
+      if (levelFilter === '0') {
+          level = '0';  // 레벨 0
+      } else if (levelFilter === '1') {
+          level = '1';  // 레벨 1 
+      } else if (levelFilter === '2') {
+          level = '2';  // 레벨 2
+      } else if (levelFilter === '3') {
+          level = '3';  // 레벨 3
+      } else if (levelFilter === '4') {
+          level = '4';  // 레벨 4
+      } else if (levelFilter === '5') {
+          level = '5';  // 레벨 5
     } else if (levelFilter === 'all') {
       level = '';  // 모든 레벨
     }
 
     axios
-        .get<Item[]>(`http://150.230.251.225/problem/list?page=&size=&sort=&title=${searchQuery}&level=${level}`)
+        .get<Item[]>(`https://api.craftlogic.site/problem/list?page=&size=&sort=&title=${searchQuery}&level=${level}`)
         .then((response) => {
           setProblemList(response.data);
         })
@@ -130,10 +136,12 @@ export default function ChallengesPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Levels</SelectItem>
+                <SelectItem value="0">Level 0</SelectItem>
                 <SelectItem value="1">Level 1</SelectItem>
                 <SelectItem value="2">Level 2</SelectItem>
                 <SelectItem value="3">Level 3</SelectItem>
                 <SelectItem value="4">Level 4</SelectItem>
+                <SelectItem value="5">Level 5</SelectItem>
               </SelectContent>
             </Select>
 
@@ -150,60 +158,61 @@ export default function ChallengesPage() {
 
           </div>
 
-          <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
-            {problemList.map((item, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <span className="text-xl">{item.title}</span>
-                      <span className="text-sm font-normal text-gray-500 dark:text-white">
-                    {item.level}
-                  </span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="mb-4 text-sm text-gray-600 dark:text-white">
-                      문제 설명 어쩌고 저쩌고...
-                    </p>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-white">
-                  <span className="flex items-center">
-                    <Code className="w-4 h-4 mr-1" />
-                    Java
-                  </span>
-                      <span className="flex items-center">
-                    <GraduationCap className="w-4 h-4 mr-1" />
-                        {item.correctRate}%
-                  </span>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    {isLoggedIn ? (
-                        <Button className="w-full" onClick={() => navigate('/codefield')}>Start Challenge</Button>
-                    ) : (
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button variant="outline" className="w-full">로그인하셈용</Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>Sign up / Sign in</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                문제 풀려면 로그인해야돼용
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogAction className="text-bold" onClick={handleSignIn}>
-                                <Github className="h-12 w-12" />Github
-                              </AlertDialogAction>
-                              <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                    )}
-                  </CardFooter>
-                </Card>
-            ))}
-          </div>
+              <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
+                  {problemList.map((item, index) => (
+                      <Card key={index}>
+                          <CardHeader>
+                              <CardTitle className="flex items-center justify-between">
+                                  <span className="text-xl">{item.title}</span>
+                                  <span className="text-sm font-normal text-gray-500 dark:text-white">
+                                      {item.level}
+                                  </span>
+                              </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                              <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-white">
+                                  <span className="flex items-center">
+                                      <Code className="w-4 h-4 mr-1" />
+                                      Java
+                                  </span>
+                                  <span className="flex items-center">
+                                      <GraduationCap className="w-4 h-4 mr-1" />
+                                      {item.correctRate}%
+                                  </span>
+                              </div>
+                          </CardContent>
+                          <CardFooter>
+                              {isLoggedIn ? (
+                                  <Button className="w-full" onClick={() => navigate(`/codefield/${item.id}`)}>
+                                      Start Challenge
+                                  </Button>
+                              ) : (
+                                  <AlertDialog>
+                                      <AlertDialogTrigger asChild>
+                                          <Button variant="outline" className="w-full">로그인하셈용</Button>
+                                      </AlertDialogTrigger>
+                                      <AlertDialogContent>
+                                          <AlertDialogHeader>
+                                              <AlertDialogTitle>Sign up / Sign in</AlertDialogTitle>
+                                              <AlertDialogDescription>
+                                                  문제를 풀려면 로그인해야 합니다. 계정을 연결해주세요.
+                                              </AlertDialogDescription>
+                                          </AlertDialogHeader>
+                                          <AlertDialogFooter>
+                                              <AlertDialogAction className="text-bold" onClick={handleSignIn}>
+                                                  <Github className="h-6 w-6 mr-2" />
+                                                  GitHub 로그인
+                                              </AlertDialogAction>
+                                              <AlertDialogCancel className="text-bold">취소</AlertDialogCancel>
+                                          </AlertDialogFooter>
+                                      </AlertDialogContent>
+                                  </AlertDialog>
+                              )}
+                          </CardFooter>
+                      </Card>
+                  ))}
+              </div>
+
 
           <div className="py-5">
             <Pagination>

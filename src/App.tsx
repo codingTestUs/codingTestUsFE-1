@@ -21,7 +21,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Landing />} />
-                    <Route path="/codefield" element={<PrivateRoute><CodeField /></PrivateRoute>} />
+                    <Route path="/codefield/:id" element={<PrivateRoute><CodeField /></PrivateRoute>} />
                     <Route path="/challenges" element={<ChallengesPage />} />
                     <Route path="/mypage" element={<PrivateRoute><MyPage /></PrivateRoute>} />
                     <Route path="/blogs" element={<Blogs />} />

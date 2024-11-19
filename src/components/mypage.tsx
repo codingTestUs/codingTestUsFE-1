@@ -110,10 +110,8 @@ const dailyChartConfig = {
 } satisfies ChartConfig;
 
 export default function MyPage() {
-  const [nickname, setNickname] = useState(user.nickname);
-  const [email, setEmail] = useState(user.email);
 
-  // jwt http://150.230.251.225/user로 요청하기
+  // jwt https://api.craftlogic.site/user로 요청하기
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -128,7 +126,7 @@ export default function MyPage() {
           return;
         }
 
-        const response = await fetch("http://150.230.251.225/user", {
+          const response = await fetch("https://api.craftlogic.site/user", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${jwt}`, // Bearer 토큰으로 JWT 포함
