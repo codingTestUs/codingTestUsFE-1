@@ -28,6 +28,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/login-success" element={<LoginCheck />} />
                     <Route path="/ranking" element={<RankingPage />} />
+                    <Route path="/*" element={<Landing />} />
 
                     {/* 서버터져서 임시로 쓰는거임 나중에 지우셈 */}
                     <Route path="/codefield2" element={<CodeField />} />
