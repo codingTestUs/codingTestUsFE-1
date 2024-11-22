@@ -15,7 +15,7 @@ export default function LoginSuccess() {
         if (key) {
             // 'key' 값을 로컬 스토리지에 저장
             localStorage.setItem("key", key);
-            console.log("key가 저장되었습니다:", key);
+            console.log("key가 저장되었습니다:");
 
             // key 값을 이용하여 JWT 요청
             getJWT(key);

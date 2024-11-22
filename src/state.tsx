@@ -1,6 +1,5 @@
 import { atom, useRecoilState } from 'recoil';
 import { useEffect } from 'react';
-import axios from 'axios';
 
 // 로그인 상태 Atom
 export const isLoggedInState = atom<boolean>({
@@ -28,20 +27,19 @@ export const useLoginStateSync = () => {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
-    const checkSessionExpiration = async () => {
+    const checkSessionExpiration = () => {
       const expireTime = parseInt(sessionStorage.getItem('expireTime') || '0', 10);
 
       if (Date.now() > expireTime) {
         // 세션 만료 시 로그아웃 처리
         setIsLoggedIn(false);
 
-        // 로그아웃 요청 보내기
-        try {
-          await axios.get("/logout");  // 로그아웃 API 호출
-          alert("세션이 만료되어 자동으로 로그아웃되었습니다.");
-        } catch (error) {
-          console.error("로그아웃 요청 중 오류가 발생했습니다.", error);
-        }
+        // 로그아웃 요청 URL로 리디렉션
+        window.location.href = "https://api.craftlogic.site/logout";  // 로그아웃 URL로 이동
+
+        // 세션 상태 초기화
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('expireTime');
 
         // 타이머 제거
         clearTimeout(timeoutId);  // 타이머 제거

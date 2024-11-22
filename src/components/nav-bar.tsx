@@ -1,27 +1,32 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "./mode-toggle";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Github } from "lucide-react";
 import { useLoginStateSync } from "@/state"; // 커스텀 훅 불러오기
-import axios from 'axios';
+import { useState } from "react";
 
 export default function Navbar() {
-  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useLoginStateSync();
 
   const handleSignIn = () => {
-      window.location.href = "https://api.craftlogic.site/oauth2/authorization/github";
+    window.location.href = "https://api.craftlogic.site/oauth2/authorization/github";
   };
 
-  const handleLogout = async () => {
+  // 로그아웃 처리 함수
+  const logout = () => {
     try {
-      await axios.get("/logout");
-      setIsLoggedIn(false);
-      navigate("/");
+      // 로그아웃 URL로 이동
+      window.location.href = "https://api.craftlogic.site/logout";
+
+      // 로컬 스토리지에서 JWT 삭제
+      localStorage.removeItem("jwt");
+      setIsLoggedIn(false); // 로그인 상태 초기화
+
     } catch (error) {
-      console.error("Error during logout request:", error);
+      console.error("로그아웃 요청 중 오류 발생:", error);
+      alert("로그아웃에 실패했습니다. 다시 시도해주세요.");
     }
   };
 
@@ -54,7 +59,10 @@ export default function Navbar() {
                   <Link to="/mypage">
                     <Button variant="outline">My Page</Button>
                   </Link>
-                  <Button variant="outline" onClick={handleLogout}>
+                  <Button
+                      variant="outline"
+                      onClick={logout} // 로그아웃 버튼 클릭 시 로그아웃 처리
+                  >
                     Logout
                   </Button>
                 </>

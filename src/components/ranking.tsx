@@ -1,25 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Medal, Award } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './nav-bar';
 import Footer from './footer';
 
 type RankedItem = {
     id: number;
     nickname: string;
-      score: number;
+    score: number;
 };
+
 export default function RankingPage() {
+    const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 호출
     const [items, setItems] = useState<RankedItem[] | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 추가
+    const [retry, setRetry] = useState<number>(0); // 재시도를 위한 상태 추가
 
     // API 데이터 가져오기
     useEffect(() => {
         const fetchUserInfo = async () => {
+            setLoading(true); // 로딩 시작
+            setError(null); // 이전 오류 상태 초기화
+
             try {
                 const jwt = localStorage.getItem('jwt');
                 if (!jwt) {
-                    setError('로그인 정보가 없습니다. 다시 로그인해주세요.');
+                    setError('There is no login information. Please log in again.');
+                    setLoading(false);
                     return;
                 }
 
@@ -39,19 +48,42 @@ export default function RankingPage() {
             } catch (err) {
                 console.error('API 요청 오류:', err);
                 setError('유저 데이터를 불러오는 중 오류가 발생했습니다.');
+            } finally {
+                setLoading(false); // 로딩 완료
             }
         };
 
         fetchUserInfo();
-    }, []);
+    }, [retry]); // retry 상태가 변경될 때마다 fetchUserInfo 호출
 
-    // 로딩 상태 처리
+    // 오류 UI 처리
     if (error) {
-        return <div className="error-box">{error}</div>; // 오류 박스 스타일 추가 가능
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+                <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-lg text-center">
+                    <h1 className="text-3xl font-bold text-red-500 mb-4">NONO ! </h1>
+                    <p className="text-gray-700 dark:text-gray-300 mb-6">{error}</p>
+                    <button
+                        onClick={() => navigate('/')} // 버튼 클릭 시 '/'로 리다이렉션
+                        className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600"
+                    >
+                        You Go Home
+                    </button>
+                </div>
+            </div>
+        );
     }
 
-    if (!items) {
-        return <div className="loading-spinner">데이터를 불러오는 중...</div>; // 스피너 애니메이션 추가 가능
+    // 로딩 UI 처리
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 mx-auto mb-4"></div>
+                    <p className="text-xl text-gray-700 dark:text-gray-300">데이터를 불러오는 중...</p>
+                </div>
+            </div>
+        );
     }
 
     const getIcon = (rank: number) => {
@@ -67,6 +99,7 @@ export default function RankingPage() {
         }
     };
 
+    // 정상 상태 UI
     return (
         <>
             <Navbar />
