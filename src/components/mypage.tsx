@@ -171,12 +171,15 @@ export default function MyPage() {
             <CardContent className="space-y-4">
               <div className="flex items-center space-x-4">
                 <Avatar className="w-20 h-20">
-                  <AvatarImage src={userData.avatar} alt={userData.providerNickname} />
-                  <AvatarFallback>{userData.providerNickname.slice(0, 2)}</AvatarFallback>
+                  <AvatarImage src={userData.avatar} alt={userData.provider.providerNickname} />
+                  <AvatarFallback>
+                    {(userData.provider?.providerNickname?.slice(0, 2) || "NN")}
+                  </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h2 className="text-2xl font-bold">{userData.providerNickname}</h2>
-
+                  <h2 className="text-2xl font-bold">
+                    {userData.nickname || userData.provider.providerNickname}
+                  </h2>
                 </div>
               </div>
               <div className="space-y-2">
@@ -186,7 +189,7 @@ export default function MyPage() {
                 </p>
                 <p className="flex items-center">
                   <BookOpenCheck className="w-4 h-4 mr-2" />
-                  {userData.provider}
+                  Provider: {userData.provider.providerEnum}
                 </p>
                 <p className="flex items-center">
                   <Check className="w-4 h-4 mr-2" />
@@ -194,7 +197,7 @@ export default function MyPage() {
                 </p>
                 <p className="flex items-center">
                   <CodeIcon className="w-4 h-4 mr-2" />
-                  Preferred Language: Java
+                  Score: {userData.score}
                 </p>
               </div>
               
@@ -237,16 +240,17 @@ export default function MyPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {badges.map((badge, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <Badge variant="outline" className={`text-${badge.level.toLowerCase()}`}>
-                      {badge.level}
-                    </Badge>
-                    <div>
-                      <h3 className="font-semibold">{badge.name}</h3>
-                      <p className="text-sm text-muted-foreground">{badge.description}</p>
+                {userData.userBadgeList.map((badge, index) => (
+                    <div key={index} className="flex items-center space-x-4">
+                      <img src={badge.imageUrl} alt={badge.name} className="w-12 h-12 rounded-full" />
+                      <div>
+                        <h3 className="font-semibold">{badge.name}</h3>
+                        <p className="text-sm text-muted-foreground">{badge.description}</p>
+                        <p className="text-xs text-gray-500">
+                          Achieved on: {new Date(badge.achievedDate).toLocaleDateString()}
+                        </p>
+                      </div>
                     </div>
-                  </div>
                 ))}
               </div>
             </CardContent>

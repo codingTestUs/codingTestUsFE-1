@@ -16,21 +16,53 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function CodeField() {
+
+    interface Problem {
+        title: string; // 문제 제목
+        level: string; // 문제 난이도
+        score: number; // 점수
+        description: string; // 문제 설명
+        limitation: string; // 제한 조건
+        inputOutput: string; // 입출력 예시
+        returnType: string; // 리턴 타입
+        params: { type: string, name: string }[]; // 파라미터 목록
+    }
+
     const { id } = useParams(); // URL에서 문제 ID 가져오기
     const navigate = useNavigate();
 
-    const [problem, setProblem] = useState(null);
+    const [problem, setProblem] = useState<Problem | null>(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // 초기 코드 설정
-    const initialCode = `public class Solution { 
-    public static void main(String[] args) { 
-        System.out.println("Hello World!"); 
-    } 
-  }`;
+    // 초기 코드 생성 함수
+    const generateInitialCode = (problem) => {
+        if (!problem) return '';
 
-    const [code, setCode] = useState(initialCode);
+        const returnType = problem.returnType || 'void'; // 기본값 'void'
+        const params = Array.isArray(problem.params) ? problem.params : [];  // params가 배열인지 확인
+        const paramList = params.map(param => `${param.type} ${param.name}`).join(', '); // 파라미터 리스트 생성
+
+        return `public class Solution {
+        public static ${returnType} main(${paramList}) {
+            System.out.println("Java 실행 Hello!!!");
+            ${params.map(param => `System.out.println(${param.name});`).join('\n')}
+            // 수정 필요: 리턴 타입에 맞는 반환값 설정
+            return new ${returnType}[]{/* 적절한 값 넣기 */};
+        }
+    }`;
+    };
+
+
+    // 초기화 코드 설정
+    const initialCode = problem ? generateInitialCode(problem) : ``;
+
+    const [code, setCode] = useState<string>('');
+    useEffect(() => {
+        if (problem) {
+            setCode(generateInitialCode(problem));  // 문제 데이터를 받아온 후 코드 설정
+        }
+    }, [problem]);
 
     // API로 문제 데이터 가져오기
     useEffect(() => {
@@ -50,10 +82,11 @@ export default function CodeField() {
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
+                    const data: Problem = await response.json(); // Problem 타입 사용
                     setProblem(data);
                 } else {
-                    setError("문제를 가져오는 데 실패했습니다.");
+                    const errorData = await response.json();
+                    setError(errorData.message || "문제를 가져오는 데 실패했습니다.");
                 }
             } catch (err) {
                 console.error("API 요청 오류:", err);
@@ -75,7 +108,7 @@ export default function CodeField() {
         return <div className="error-box">{error}</div>;
     }
 
-    // 코드 편집기 변경 핸들러
+    // 코드 편집기 에서의 변경 핸들러
     const handleEditorChange = (value: string | undefined) => {
         if (value) setCode(value);
     };
@@ -109,8 +142,15 @@ export default function CodeField() {
 
             // 응답 처리
             if (response.ok) {
-                console.log(response)
-                alert("코드가 성공적으로 제출되었습니다!");
+                const responseData = await response.json(); // JSON 파싱
+                const { isCorrect } = responseData; // isCorrect 값 추출
+
+                // 정답 여부에 따라 메시지 출력
+                if (isCorrect) {
+                    alert("정답입니다! 축하합니다!");
+                } else {
+                    alert("오답입니다. 다시 시도해보세요!");
+                }
             } else {
                 const errorData = await response.json();
                 alert(`코드 제출에 실패했습니다: ${errorData.message || "알 수 없는 오류"}`);
@@ -120,7 +160,6 @@ export default function CodeField() {
             alert("코드 제출 중 오류가 발생했습니다.");
         }
     };
-
 
     return (
         <div className="grid h-screen w-full pl-[53px]">
@@ -180,23 +219,30 @@ export default function CodeField() {
                                 <legend className="inline-block px-1 -ml-1 text-sm font-medium">제한</legend>
                                 <p>{problem?.limitation || "제한 사항 없음"}</p>
                             </fieldset>
+
+                            {/* 입출력 예시 */}
+                            <fieldset className="grid gap-6 p-4 border rounded-lg">
+                                <legend className="inline-block px-1 -ml-1 text-sm font-medium">입출력 예시</legend>
+                                <p>{problem?.inputOutput}</p>
+                            </fieldset>
                         </div>
                     </div>
 
                     {/* 코드 편집기 */}
                     <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
-                        <Editor
-                            theme="vs-dark"
-                            defaultLanguage="java"
-                            value={code}
-                            options={{
-                                fontSize: 16,
-                                readOnly: false,
-                                minimap: { enabled: false },
-                            }}
-                            height={"70%"}
-                            onChange={handleEditorChange}
-                        />
+                        <div className="p-2">
+                            <Editor
+                                height="80vh"
+                                language="java"
+                                value={code}
+                                onChange={handleEditorChange}
+                                options={{
+                                    readOnly: loading || error ? true : false,
+                                    fontSize: 18, // 글자 크기 설정
+                                }}
+                                theme="vs-dark" // 다크 모드 테마 설정
+                            />
+                        </div>
 
                         {/* 버튼 */}
                         <div className="flex mt-5">

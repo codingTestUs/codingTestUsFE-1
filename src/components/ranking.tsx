@@ -43,7 +43,7 @@ export default function RankingPage() {
                     const data = await response.json();
                     setItems(data); // 성공적으로 데이터를 불러오면 items 상태를 업데이트
                 } else {
-                    setError('유저 랭킹 데이터를 가져오는 데 실패했습니다.');
+                    setError('Failed to retrieve user ranking data.');
                 }
             } catch (err) {
                 console.error('API 요청 오류:', err);
