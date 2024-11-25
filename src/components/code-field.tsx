@@ -34,6 +34,7 @@ export default function CodeField() {
     const [problem, setProblem] = useState<Problem | null>(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [result, setResult] = useState<any>(null);
 
     // 초기 코드 생성 함수
     const generateInitialCode = (problem) => {
@@ -52,7 +53,6 @@ export default function CodeField() {
         }
     }`;
     };
-
 
     // 초기화 코드 설정
     const initialCode = problem ? generateInitialCode(problem) : ``;
@@ -118,19 +118,22 @@ export default function CodeField() {
         setCode(initialCode);
     };
 
-    // 코드 제출 핸들러
+    // 코드 제출 함수
     const submitCode = async () => {
         try {
             const jwt = localStorage.getItem("jwt");
 
-            // 요청 본문 데이터
+            if (!jwt) {
+                alert("로그인이 필요합니다.");
+                return;
+            }
+
             const requestBody = {
-                problemId: id, // 문제 ID (적절히 동적으로 변경 가능)
-                lang: "java",   // 언어 설정
-                sourceCode: code, // 현재 코드 편집기에서 작성한 코드
+                problemId: id,
+                lang: "java",
+                sourceCode: code,
             };
 
-            // API 요청
             const response = await fetch(`https://api.craftlogic.site/code/answer`, {
                 method: "POST",
                 headers: {
@@ -140,17 +143,32 @@ export default function CodeField() {
                 body: JSON.stringify(requestBody),
             });
 
-            // 응답 처리
             if (response.ok) {
-                const responseData = await response.json(); // JSON 파싱
-                const { isCorrect } = responseData; // isCorrect 값 추출
+                const responseData = await response.json();
 
-                // 정답 여부에 따라 메시지 출력
-                if (isCorrect) {
-                    alert("정답입니다! 축하합니다!");
-                } else {
-                    alert("오답입니다. 다시 시도해보세요!");
-                }
+                const allCorrect = responseData.every((result) => result.isCorrect);
+                const totalRuntime = responseData.reduce((acc, result) => {
+                    const runtime = parseFloat(result.runtime.replace("ms", ""));
+                    return acc + runtime;
+                }, 0);
+
+                const message = allCorrect ? "정답입니다! 축하합니다!" : "오답입니다. 일부 테스트 케이스가 실패했습니다.";
+
+                // setResult 호출하여 상태 업데이트
+                setResult({
+                    message,
+                    totalTime: totalRuntime,
+                    testCases: responseData.map((result, index) => ({
+                        testcaseAnswer: result.testcaseAnswer,
+                        userAnswer: Array.isArray(result.userAnswer)
+                            ? result.userAnswer.join(", ")
+                            : result.userAnswer,
+                        runtime: result.runtime,
+                        isCorrect: result.isCorrect,
+                    })),
+                });
+
+                console.log(message);
             } else {
                 const errorData = await response.json();
                 alert(`코드 제출에 실패했습니다: ${errorData.message || "알 수 없는 오류"}`);
@@ -160,6 +178,10 @@ export default function CodeField() {
             alert("코드 제출 중 오류가 발생했습니다.");
         }
     };
+
+    // 로딩 중이거나 에러가 있을 때 코드 편집기 비활성화
+    if (loading) return <div>데이터를 불러오는 중...</div>;
+    if (error) return <div>{error}</div>;
 
     return (
         <div className="grid h-screen w-full pl-[53px]">
@@ -225,6 +247,43 @@ export default function CodeField() {
                                 <legend className="inline-block px-1 -ml-1 text-sm font-medium">입출력 예시</legend>
                                 <p>{problem?.inputOutput}</p>
                             </fieldset>
+
+                            {/* 코드 실행 결과 */}
+                            {result && (
+                                <fieldset className="grid gap-6 p-4 border rounded-lg">
+                                    <legend className="inline-block px-1 -ml-1 text-sm font-medium">코드 실행 결과</legend>
+                                    <p>{result.message}</p>
+                                    <p>총 걸린 시간: {result.totalTime}ms</p>
+                                    <table className="w-full border-collapse">
+                                        <thead>
+                                        <tr>
+                                            <th className="px-4 py-2 border">테스트 케이스</th>
+                                            <th className="px-4 py-2 border">정답</th>
+                                            <th className="px-4 py-2 border">제출한 답</th>
+                                            <th className="px-4 py-2 border">걸린 시간</th>
+                                            <th className="px-4 py-2 border">결과</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {result.testCases.map((testCase, index) => (
+                                            <tr key={index}>
+                                                <td className="px-4 py-2 border">{index + 1}</td>
+                                                <td className="px-4 py-2 border">{testCase.testcaseAnswer}</td>
+                                                <td className="px-4 py-2 border">{testCase.userAnswer}</td>
+                                                <td className="px-4 py-2 border">{testCase.runtime}</td>
+                                                <td className="px-4 py-2 border">
+                                                    {testCase.isCorrect ? (
+                                                        <Check size={18} className="text-green-500" />
+                                                    ) : (
+                                                        <CircleAlert size={18} className="text-red-500" />
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
+                                </fieldset>
+                            )}
                         </div>
                     </div>
 
@@ -299,11 +358,19 @@ export default function CodeField() {
                                         <AlertDialogDescription>ㄱㄱ</AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
-                                        <AlertDialogAction className="text-bold" onClick={submitCode}>ㄱㄱ</AlertDialogAction>
+                                        <AlertDialogAction
+                                            className="text-bold"
+                                            onClick={async () => {
+                                                await submitCode(); // 코드 제출 함수 호출
+                                            }}
+                                        >
+                                            ㄱㄱ
+                                        </AlertDialogAction>
                                         <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>
+
                         </div>
                     </div>
                 </main>
