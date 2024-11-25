@@ -1,6 +1,7 @@
 // Call To Action : 고객에게 행동을 유도하는 페이지
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {Github} from "lucide-react";
 
 export default function CTA(){
     return(
@@ -21,12 +22,22 @@ export default function CTA(){
                 </p>
               </div>
               <div className="flex flex-row gap-4">
-                <Button className="gap-4" variant="outline">
-                  버튼1
+                <Button
+                    className="gap-4"
+                    variant="outline"
+                    onClick={() => window.location.href = "https://api.craftlogic.site/oauth2/authorization/github"}
+                >
+                  <Github className="mr-2 h-4 w-4" />
+                  Github
                 </Button>
-                <Button className="gap-4">
-                  버튼2
+
+                <Button
+                    className="gap-4"
+                    onClick={() => window.location.href = "https://api.craftlogic.site/oauth2/authorization/google"}
+                >
+                  <span className="text-lg">G</span> &nbsp;Google
                 </Button>
+
               </div>
             </div>
           </div>

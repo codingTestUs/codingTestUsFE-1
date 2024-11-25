@@ -15,23 +15,6 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 import { Input } from "@/components/ui/input"; // Import Input component
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 
-// Mock user data
-const user = {
-  nickname: "CodeMaster",
-  email: "codemaster@example.com",
-  creationDate: "2022-01-01",
-  solvedProblems: 150,
-  preferredLanguage: "JavaScript",
-  avatarUrl: "/placeholder.svg?height=100&width=100",
-};
-
-// Mock badge data
-const badges = [
-  { name: "Problem Solver", level: "Gold", description: "Solved 100+ problems" },
-  { name: "Streak Master", level: "Silver", description: "30-day solving streak" },
-  { name: "Language Expert", level: "Bronze", description: "Mastered 3 languages" },
-];
-
 // 유형별 차트
 const categoryChartData = [
   { category: "StackQueue", me: 186, average: 160 },
@@ -185,19 +168,19 @@ export default function MyPage() {
               <div className="space-y-2">
                 <p className="flex items-center">
                   <Smile className="w-4 h-4 mr-2" />
-                  Role: {userData.role}
+                  권한: {userData.role}
                 </p>
                 <p className="flex items-center">
                   <BookOpenCheck className="w-4 h-4 mr-2" />
-                  Provider: {userData.provider.providerEnum}
+                  로그인 방식: {userData.provider.providerEnum}
                 </p>
                 <p className="flex items-center">
                   <Check className="w-4 h-4 mr-2" />
-                  Solved Problems: {user.solvedProblems}
+                  해결한 문제: {userData.solveCount}
                 </p>
                 <p className="flex items-center">
                   <CodeIcon className="w-4 h-4 mr-2" />
-                  Score: {userData.score}
+                  점수: {userData.score}
                 </p>
               </div>
               

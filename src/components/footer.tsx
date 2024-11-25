@@ -16,13 +16,21 @@ export default function Footer() {
           href: "https://velog.io/@aidevksh",
         },
         {
-            title: "블로그2",
-            href: "/",
+            title: "남기훈의 블로그",
+            href: "https://megamaker.tistory.com/",
           },
           {
-            title: "블로그3",
-            href: "/",
+            title: "윤준상의 블로그",
+            href: "https://iceamericanoinduk.notion.site/11ccbe3bce3980889a0adbcdab251d52",
           },
+        {
+          title: "김수연의 깃허브",
+          href: "https://github.com/yeonXP",
+        },
+        {
+          title: "황수현의 깃허브",
+          href: "https://github.com/ppangddu",
+        },
       ],
     },
     {
@@ -30,16 +38,16 @@ export default function Footer() {
       description: "",
       items: [
         {
-          title: "김승혁 콜랩",
-          href: "/",
+          title: "Frontend Repository",
+          href: "https://github.com/codingTestUs/codingTestUsFE-1",
         },
         {
-            title: "김승혁 깃헙",
-            href: "/",
+            title: "Backend Repository",
+            href: "https://github.com/ness727/code-challenge",
         },
         {
-            title: "깃헙2",
-            href: "/",
+            title: "API Documentation",
+            href: "https://documenter.getpostman.com/view/37125287/2sAXxMfYZ9",
         },
       ],
     },
