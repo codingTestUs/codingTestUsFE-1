@@ -42,6 +42,7 @@ import {
 import Navbar from "./nav-bar";
 import Footer from "./footer";
 import { useLoginStateSync } from "@/state";
+import "@/components/css/Challenges.css";
 
 export default function ChallengesPage() {
 
@@ -56,15 +57,39 @@ export default function ChallengesPage() {
         },
     });
 
-    const [pagenation, setPagination] = useState('');
-    const [start, setStart] = useState('');
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+    const [pageSize, setPageSize] = useState(6); // 페이지 크기
+    const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
 
     const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태 추가
     const [levelFilter, setLevelFilter] = useState('all'); // 선택된 레벨 상태
+
+    const [sort, setSort] = useState<string>('title,asc'); // 기본 정렬: 제목 오름차순
+
     const navigate = useNavigate();
 
     const handleSignIn = () => {
         window.location.href = "https://api.craftlogic.site/oauth2/authorization/github";
+    };
+
+    // 페이지 이동 시 상태를 업데이트
+    const handlePageChange = (page: number) => {
+        if (page > 0 && page <= totalPages) {
+            setCurrentPage(page);
+        }
+    };
+
+    // 정렬 기준
+    const handleSortChange = (value: string) => {
+        let sortValue = '';
+        if (value === 'newest') {
+            sortValue = 'title,desc';
+        } else if (value === 'oldest') {
+            sortValue = 'title,asc';
+        } else if (value === 'mostSolved') {
+            sortValue = 'correctRate,desc';
+        }
+        setSort(sortValue);
     };
 
     // 문제의 타입 정의
@@ -113,9 +138,10 @@ export default function ChallengesPage() {
         const fetchData = async () => {
             try {
                 const response = await axios.get<ApiResponse>(
-                    `https://api.craftlogic.site/problem/list?page=${pagenation}&size=&sort=&title=${searchQuery}&level=${level}`
+                    `https://api.craftlogic.site/problem/list?page=${currentPage - 1}&size=${pageSize}&sort=${sort}&title=${searchQuery}&level=${level}`
                 );
                 setApiResponse(response.data);
+                setTotalPages(response.data.page.totalPages); // 총 페이지 수 업데이트
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setApiResponse({
@@ -131,7 +157,7 @@ export default function ChallengesPage() {
         };
 
         fetchData();
-    }, [searchQuery, levelFilter]); // searchQuery가 변경될 때마다 API 요청
+    }, [searchQuery, levelFilter, currentPage, pageSize, sort]); // searchQuery가 변경될 때마다 API 요청
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -141,19 +167,8 @@ export default function ChallengesPage() {
                 <div className="mb-8">
                     <h1 className="mb-2 text-3xl font-bold">Coding Challenges</h1>
                     <p className="text-gray-600 dark:text-white">
-                        열심히 풀어서 취업 하셔야지. 열심히 풀어서 취업 하셔야지. 열심히 풀어서 취업 하셔야지.
+                        만일 여러분이 코딩을 할 수 있게 된다면, 앉은 자리에서 무엇인가를 만들어낼 수 있고. 아무도 당신을 막을 수 없을 것이다. - 마크 주커버그
                     </p>
-                </div>
-
-                <div className="mb-8">
-                    <Tabs defaultValue="all">
-                        <TabsList>
-                            <TabsTrigger value="all">All Challenges</TabsTrigger>
-                            <TabsTrigger value="algorithm">Algorithm</TabsTrigger>
-                            <TabsTrigger value="database">Database</TabsTrigger>
-                            <TabsTrigger value="frontend">Frontend</TabsTrigger>
-                        </TabsList>
-                    </Tabs>
                 </div>
 
                 <div className="flex flex-col gap-4 mb-8 md:flex-row">
@@ -180,17 +195,16 @@ export default function ChallengesPage() {
                         </SelectContent>
                     </Select>
 
-                    <Select>
+                    <Select onValueChange={(value) => handleSortChange(value)}>
                         <SelectTrigger className="w-full md:w-[180px]">
                             <SelectValue placeholder="Sort by" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="newest">Newest</SelectItem>
-                            <SelectItem value="oldest">Oldest</SelectItem>
+                            <SelectItem value="newest">Newest Solved</SelectItem>
+                            <SelectItem value="oldest">Oldest Solved</SelectItem>
                             <SelectItem value="mostSolved">Most Solved</SelectItem>
                         </SelectContent>
                     </Select>
-
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
@@ -253,30 +267,39 @@ export default function ChallengesPage() {
                 </div>
 
                 <div className="py-5">
-                    <Pagination>
-                        <PaginationContent>
-                            <PaginationItem>
-                                <PaginationPrevious href="#" />
-                            </PaginationItem>
-                            {Array.from({ length: 5 }, (_, index) => (
-                                <PaginationItem key={index}>
-                                    <PaginationLink
-                                        href={`#${index + 1}`}
-                                        isActive={index === 1} // 2번째 페이지(인덱스 1) 활성화
-                                    >
-                                        {index + 1}
-                                    </PaginationLink>
-                                </PaginationItem>
-                            ))}
-                            <PaginationItem>
-                                <PaginationEllipsis />
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationNext href="#" />
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>
+                    <ul className="pagination">
+                        <li>
+                            <a
+                                href="#"
+                                className={`previous ${currentPage === 1 ? 'disabled' : ''}`}
+                                onClick={() => handlePageChange(currentPage - 1)}
+                            >
+                                Previous
+                            </a>
+                        </li>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <li key={index}>
+                                <a
+                                    href="#"
+                                    className={currentPage === index + 1 ? 'active' : ''}
+                                    onClick={() => handlePageChange(index + 1)}
+                                >
+                                    {index + 1}
+                                </a>
+                            </li>
+                        ))}
+                        <li>
+                            <a
+                                href="#"
+                                className={`next ${currentPage === totalPages ? 'disabled' : ''}`}
+                                onClick={() => handlePageChange(currentPage + 1)}
+                            >
+                                Next
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+
             </main>
             <Footer />
         </div>

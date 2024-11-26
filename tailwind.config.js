@@ -8,7 +8,8 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Noto Sans KR', 'sans-serif'],  // Noto Sans KR을 기본 폰트로 추가
+				sans: ['Noto Sans KR', 'sans-serif'], // Noto Sans KR을 기본 폰트로 추가
+				heading: ['Playfair Display', 'serif'], // 헤딩에 어울리는 폰트 추가
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -60,4 +61,4 @@ export default {
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
-}
+};

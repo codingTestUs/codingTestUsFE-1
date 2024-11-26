@@ -32,33 +32,38 @@ export default function Navbar() {
 
   return (
       <nav className="border-b">
-        <div className="flex items-center p-4 mx-auto" style={{ maxWidth: "85rem" }}>
+        <div className="flex items-center p-4 mx-auto" style={{maxWidth: "85rem"}}>
           <div className="flex-1">
             <Link to="/" className="text-3xl tracking-tighter">
               codingTestUs 🧑‍💻
             </Link>
           </div>
+          {/* 중앙 메뉴 */}
           <div className="justify-center flex-1 hidden space-x-8 md:flex">
-            <Link to="/challenges" className="font-medium text-md hover:underline">
+            <Link to="/challenges" className="font-sans text-md font-semibold hover:underline">
               문제 리스트
             </Link>
-            <Link to="/ranking" className="font-medium text-md hover:underline">
+            <Link to="/ranking" className="font-sans text-md font-semibold hover:underline">
               랭킹
             </Link>
-            <Link to="/blogs" className="font-medium text-md hover:underline">
+            <Link to="/blogs" className="font-sans text-md font-semibold hover:underline">
               팀원 소개
             </Link>
           </div>
-          <div className="flex items-center justify-end flex-1 space-x-4">
 
+          {/* 우측 메뉴 */}
+          <div className="flex items-center justify-end flex-1 space-x-4">
             {isLoggedIn ? (
                 <>
                   <Link to="/mypage">
-                    <Button variant="outline">내 정보</Button>
+                    <Button variant="outline" className="font-sans font-bold">
+                      내 정보
+                    </Button>
                   </Link>
                   <Button
                       variant="outline"
-                      onClick={logout} // 로그아웃 버튼 클릭 시 로그아웃 처리
+                      className="font-sans font-bold"
+                      onClick={logout}
                   >
                     로그아웃
                   </Button>
@@ -66,21 +71,24 @@ export default function Navbar() {
             ) : (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline">
-                      로그인 <ChevronDown className="ml-2 h-4 w-4" />
+                    <Button variant="outline" className="font-sans font-bold">
+                      로그인 <ChevronDown className="font-bold ml-2 h-4 w-4"/>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56">
                     <div className="flex justify-between p-2">
-                      <DropdownMenuItem className="flex-1 justify-center" onClick={handleSignIn}>
-                        <Github className="mr-2 h-4 w-4" />
+                      <DropdownMenuItem
+                          className="flex-1 justify-center font-sans"
+                          onClick={handleSignIn}
+                      >
+                        <Github className="mr-2 h-4 w-4"/>
                         Github
                       </DropdownMenuItem>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
             )}
-            <ModeToggle />
+            <ModeToggle/>
           </div>
         </div>
       </nav>
