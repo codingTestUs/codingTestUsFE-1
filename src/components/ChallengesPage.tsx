@@ -56,6 +56,9 @@ export default function ChallengesPage() {
         },
     });
 
+    const [pagenation, setPagination] = useState('');
+    const [start, setStart] = useState('');
+
     const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태 추가
     const [levelFilter, setLevelFilter] = useState('all'); // 선택된 레벨 상태
     const navigate = useNavigate();
@@ -110,7 +113,7 @@ export default function ChallengesPage() {
         const fetchData = async () => {
             try {
                 const response = await axios.get<ApiResponse>(
-                    `https://api.craftlogic.site/problem/list?page=&size=&sort=&title=${searchQuery}&level=${level}`
+                    `https://api.craftlogic.site/problem/list?page=${pagenation}&size=&sort=&title=${searchQuery}&level=${level}`
                 );
                 setApiResponse(response.data);
             } catch (error) {
@@ -249,21 +252,22 @@ export default function ChallengesPage() {
                     )}
                 </div>
 
-
-
                 <div className="py-5">
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
                                 <PaginationPrevious href="#" />
                             </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">1</PaginationLink>
-                                <PaginationLink href="#" isActive>
-                                    2
-                                </PaginationLink>
-                                <PaginationLink href="#">3</PaginationLink>
-                            </PaginationItem>
+                            {Array.from({ length: 5 }, (_, index) => (
+                                <PaginationItem key={index}>
+                                    <PaginationLink
+                                        href={`#${index + 1}`}
+                                        isActive={index === 1} // 2번째 페이지(인덱스 1) 활성화
+                                    >
+                                        {index + 1}
+                                    </PaginationLink>
+                                </PaginationItem>
+                            ))}
                             <PaginationItem>
                                 <PaginationEllipsis />
                             </PaginationItem>
@@ -274,7 +278,6 @@ export default function ChallengesPage() {
                     </Pagination>
                 </div>
             </main>
-
             <Footer />
         </div>
     );
