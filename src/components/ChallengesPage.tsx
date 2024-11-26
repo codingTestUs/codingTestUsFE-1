@@ -46,7 +46,7 @@ import { useLoginStateSync } from "@/state";
 export default function ChallengesPage() {
 
     const [isLoggedIn, setIsLoggedIn] = useLoginStateSync();
-    const [problemList, setProblemList] = useState <Problem[]>([]);
+    const [apiResponse, setApiResponse] = useState <ApiResponse>();
     const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태 추가
     const [levelFilter, setLevelFilter] = useState('all'); // 선택된 레벨 상태
     const navigate = useNavigate();
@@ -101,7 +101,7 @@ export default function ChallengesPage() {
         axios
             .get<ApiResponse>(`https://api.craftlogic.site/problem/list?page=&size=&sort=&title=${searchQuery}&level=${level}`)
             .then((response) => {
-                setProblemList(response.data.content);
+                setApiResponse(response.data);
             })
             .catch((error) => console.error('Error fetching data:', error));
 
@@ -168,7 +168,7 @@ export default function ChallengesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
-                    {Array.isArray(problemList) && problemList.map((problem, index) => (
+                    {apiResponse && apiResponse.content.map((problem, index) => (
                         <Card key={index}>
                             <CardHeader>
                                 <CardTitle className="flex items-center justify-between">
