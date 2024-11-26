@@ -168,13 +168,13 @@ export default function ChallengesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
-                    {problemList.map((item, index) => (
+                    {problemList && problemList.map((problem, index) => (
                         <Card key={index}>
                             <CardHeader>
                                 <CardTitle className="flex items-center justify-between">
-                                    <span className="text-xl">{item.title}</span>
+                                    <span className="text-xl">{problem.title}</span>
                                     <span className="text-sm font-normal text-gray-500 dark:text-white">
-                                        {item.level}
+                                        {problem.level}
                                     </span>
                                 </CardTitle>
                             </CardHeader>
@@ -186,13 +186,13 @@ export default function ChallengesPage() {
                                     </span>
                                     <span className="flex items-center">
                                         <GraduationCap className="w-4 h-4 mr-1" />
-                                        {item.correctRate}%
+                                        {problem.correctRate}%
                                     </span>
                                 </div>
                             </CardContent>
                             <CardFooter>
                                 {isLoggedIn ? (
-                                    <Button className="w-full" onClick={() => navigate(`/codefield/${item.id}`)}>
+                                    <Button className="w-full" onClick={() => navigate(`/codefield/${problem.id}`)}>
                                         Start Challenge
                                     </Button>
                                 ) : (

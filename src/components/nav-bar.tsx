@@ -40,13 +40,13 @@ export default function Navbar() {
           </div>
           <div className="justify-center flex-1 hidden space-x-8 md:flex">
             <Link to="/challenges" className="font-medium text-md hover:underline">
-              Problems
+              문제 리스트
             </Link>
             <Link to="/ranking" className="font-medium text-md hover:underline">
-              Rank
+              랭킹
             </Link>
             <Link to="/blogs" className="font-medium text-md hover:underline">
-              About Us
+              팀원 소개
             </Link>
           </div>
           <div className="flex items-center justify-end flex-1 space-x-4">
@@ -54,20 +54,20 @@ export default function Navbar() {
             {isLoggedIn ? (
                 <>
                   <Link to="/mypage">
-                    <Button variant="outline">My Page</Button>
+                    <Button variant="outline">내 정보</Button>
                   </Link>
                   <Button
                       variant="outline"
                       onClick={logout} // 로그아웃 버튼 클릭 시 로그아웃 처리
                   >
-                    Logout
+                    로그아웃
                   </Button>
                 </>
             ) : (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline">
-                      Sign In <ChevronDown className="ml-2 h-4 w-4" />
+                      로그인 <ChevronDown className="ml-2 h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56">
