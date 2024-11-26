@@ -46,7 +46,7 @@ import { useLoginStateSync } from "@/state";
 export default function ChallengesPage() {
 
     const [isLoggedIn, setIsLoggedIn] = useLoginStateSync();
-    const [problemList, setProblemList] = useState<Item[]>([]);
+    const [problemList, setProblemList] = useState <Problem[]>([]);
     const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태 추가
     const [levelFilter, setLevelFilter] = useState('all'); // 선택된 레벨 상태
     const navigate = useNavigate();
