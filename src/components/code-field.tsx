@@ -41,17 +41,14 @@ export default function CodeField() {
         if (!problem) return '';
 
         const returnType = problem.returnType || 'void'; // 기본값 'void'
-        const params = Array.isArray(problem.params) ? problem.params : [];  // params가 배열인지 확인
-        const paramList = params.map(param => `${param.type} ${param.name}`).join(', '); // 파라미터 리스트 생성
+        const params = problem.params || '';  // params가 배열인지 확인
 
         return `public class Solution {
-        public static ${returnType} main(${paramList}) {
-            System.out.println("Java 실행 Hello!!!");
-            ${params.map(param => `System.out.println(${param.name});`).join('\n')}
-            // 수정 필요: 리턴 타입에 맞는 반환값 설정
-            return new ${returnType}[]{/* 적절한 값 넣기 */};
-        }
-    }`;
+    public static ${returnType} main(${params}) {
+        System.out.println("Java 실행 Hello!!!");
+        return ;
+    }
+ }`;
     };
 
     // 초기화 코드 설정
@@ -164,6 +161,7 @@ export default function CodeField() {
                             ? result.userAnswer.join(", ")
                             : result.userAnswer,
                         runtime: result.runtime,
+                        pramData: result.pramData,
                         isCorrect: result.isCorrect,
                     })),
                 });
@@ -257,7 +255,8 @@ export default function CodeField() {
                                     <table className="w-full border-collapse">
                                         <thead>
                                         <tr>
-                                            <th className="px-4 py-2 border">테스트 케이스</th>
+                                                <th className="px-4 py-2 border">테스트 케이스</th>
+                                                <th className="px-4 py-2 border">파라미터</th>
                                             <th className="px-4 py-2 border">정답</th>
                                             <th className="px-4 py-2 border">제출한 답</th>
                                             <th className="px-4 py-2 border">걸린 시간</th>
@@ -268,6 +267,7 @@ export default function CodeField() {
                                         {result.testCases.map((testCase, index) => (
                                             <tr key={index}>
                                                 <td className="px-4 py-2 border">{index + 1}</td>
+                                                <td className="px-4 py-2 border">{testCase.pramData}</td>
                                                 <td className="px-4 py-2 border">{testCase.testcaseAnswer}</td>
                                                 <td className="px-4 py-2 border">{testCase.userAnswer}</td>
                                                 <td className="px-4 py-2 border">{testCase.runtime}</td>
@@ -355,7 +355,7 @@ export default function CodeField() {
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
                                         <AlertDialogTitle>제출</AlertDialogTitle>
-                                        <AlertDialogDescription>ㄱㄱ</AlertDialogDescription>
+                                        <AlertDialogDescription>정말로 제출 하시겠습니까??</AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <AlertDialogAction
@@ -364,7 +364,7 @@ export default function CodeField() {
                                                 await submitCode(); // 코드 제출 함수 호출
                                             }}
                                         >
-                                            ㄱㄱ
+                                            제출하기
                                         </AlertDialogAction>
                                         <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
                                     </AlertDialogFooter>

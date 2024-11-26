@@ -77,11 +77,7 @@ export default function RankingPage() {
     // 로딩 UI 처리
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 mx-auto mb-4"></div>
-                    <p className="text-xl text-gray-700 dark:text-gray-300">데이터를 불러오는 중...</p>
-                </div>
+            <div>
             </div>
         );
     }
