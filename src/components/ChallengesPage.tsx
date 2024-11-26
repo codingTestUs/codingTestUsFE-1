@@ -168,7 +168,7 @@ export default function ChallengesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
-                    {problemList && problemList.map((problem, index) => (
+                    {Array.isArray(problemList) && problemList.map((problem, index) => (
                         <Card key={index}>
                             <CardHeader>
                                 <CardTitle className="flex items-center justify-between">
