@@ -92,7 +92,7 @@ export default function ChallengesPage() {
     axios
         .get<Item[]>(`https://api.craftlogic.site/problem/list?page=&size=&sort=&title=${searchQuery}&level=${level}`)
         .then((response) => {
-          setProblemList(response.data);
+          setProblemList(response.data.content);
         })
         .catch((error) => console.error('Error fetching data:', error));
 

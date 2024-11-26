@@ -183,34 +183,6 @@ export default function MyPage() {
                   점수: {userData.score}
                 </p>
               </div>
-              
-              <div className="flex justify-end">
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="destructive" className="text-bold">
-                      <TrashIcon className="w-4 h-4" />
-                      Delete Account
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>진짜 지울거임?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        활동기록도 다 지워집니당
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogAction>Cancel</AlertDialogAction>
-                      <AlertDialogCancel onClick={() => {
-                        // 계정 삭제 로직을 여기에 추가
-                        console.log("Account deleted");
-                      }}>
-                        Continue
-                      </AlertDialogCancel>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </div>
             </CardContent>
           </Card>
 

@@ -50,9 +50,6 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="flex items-center justify-end flex-1 space-x-4">
-            <div className="hidden md:block">
-              <Input type="search" placeholder="Search..." className="w-[150px]" />
-            </div>
 
             {isLoggedIn ? (
                 <>
