@@ -79,9 +79,6 @@ export default function Navbar() {
                         <Github className="mr-2 h-4 w-4" />
                         Github
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="flex-1 justify-center">
-                        <span className="text-lg">G</span> &nbsp; Google
-                      </DropdownMenuItem>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
