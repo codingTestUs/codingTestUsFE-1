@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 import { useLoginStateSync } from './state';
 import Landing from './components/landing';
 import CodeField from './components/code-field';
-import ChallengesPage from './components/challenges';
+import ChallengesPage from './components/ChallengesPage';
 import MyPage from './components/mypage';
 import Blogs from './components/blogs';
 import Login from './components/login';
