@@ -213,12 +213,12 @@ export default function CodeField() {
                             <AlertDialogHeader>
                                 <AlertDialogTitle>문제 신고하기</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                    사실 구라임 그런 기능은 <br />
-                                    구현하지 않았음.
+                                    아직 신고 기능은 준비 중이에요. <br />
+                                    더 나은 서비스를 위해 노력 중이니 조금만 기다려주세요! 😊
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                                <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
+                                <AlertDialogCancel className="text-bold">확인</AlertDialogCancel>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
@@ -315,14 +315,14 @@ export default function CodeField() {
                                     <AlertDialogHeader>
                                         <AlertDialogTitle>Reset Answer</AlertDialogTitle>
                                         <AlertDialogDescription>
-                                            답이 초기화 돼용
+                                            문제가 초기화됩니다. 주의해 주세요.
                                         </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <AlertDialogAction className="text-bold" onClick={resetAnswer}>
-                                            Reset
+                                            초기화하기
                                         </AlertDialogAction>
-                                        <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
+                                        <AlertDialogCancel className="text-bold">취소</AlertDialogCancel>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>
@@ -335,14 +335,14 @@ export default function CodeField() {
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
-                                        <AlertDialogTitle>Hint</AlertDialogTitle>
+                                        <AlertDialogTitle>힌트</AlertDialogTitle>
                                         <AlertDialogDescription>
-                                            사실 구라임 그런 기능은 <br />
-                                            구현하지 않았음.
+                                            아직 힌트 기능은 준비 중이에요. <br />
+                                            더 나은 서비스를 위해 노력 중이니 조금만 기다려주세요! 😊
                                         </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
-                                        <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
+                                        <AlertDialogCancel className="text-bold">확인</AlertDialogCancel>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>
@@ -366,7 +366,7 @@ export default function CodeField() {
                                         >
                                             제출하기
                                         </AlertDialogAction>
-                                        <AlertDialogCancel className="text-bold">Cancel</AlertDialogCancel>
+                                        <AlertDialogCancel className="text-bold">취소</AlertDialogCancel>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>

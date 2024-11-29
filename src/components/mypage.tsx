@@ -191,7 +191,7 @@ export default function MyPage() {
           <Card>
             <CardHeader>
               <CardTitle className="text-3xl text-bold">Badges</CardTitle>
-              <CardDescription>Achievements based on your progress</CardDescription>
+              <CardDescription>진행 상황에 따른 성취도</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -202,7 +202,7 @@ export default function MyPage() {
                         <h3 className="font-semibold">{badge.name}</h3>
                         <p className="text-sm text-muted-foreground">{badge.description}</p>
                         <p className="text-xs text-gray-500">
-                          Achieved on: {new Date(badge.achievedDate).toLocaleDateString()}
+                          획득일: {new Date(badge.achievedDate).toLocaleDateString()}
                         </p>
                       </div>
                     </div>

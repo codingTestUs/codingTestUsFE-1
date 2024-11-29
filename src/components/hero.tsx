@@ -105,18 +105,18 @@ export default function Hero() {
             <div className="flex flex-col gap-4">
               <h1 className="max-w-lg text-5xl tracking-tighter text-left md:text-6xl">
                 codingTestUs <br />
-                <span className="text-4xl tracking-normal">Problems AI Generated</span>
+                <span className="text-4xl tracking-normal">AI가 생성하는 문제들</span>
               </h1>
               <p className="max-w-md text-xl leading-relaxed tracking-tight text-left text-muted-foreground">
-              We gather coding test data through an API to train the model, and based on this training information, we generate and provide problems.
+                저희는 API를 통해 코딩 테스트 데이터를 수집하고, 이를 기반으로 모델을 학습시켜 문제를 생성 및 제공합니다.
               </p>
             </div>
             <div className="flex flex-row gap-4">
               <Button size="lg" className="gap-4" variant="outline">
-                Explore Features
+                기능 살펴보기
               </Button>
               <Button size="lg" className="gap-4" onClick={handleGetStartedClick}>
-                Get Started <MoveRight className="w-4 h-4" />
+                시작하기 <MoveRight className="w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -132,54 +132,54 @@ export default function Hero() {
           {/* 도넛 차트 */}
           <Card className="flex-1 ">
             <CardHeader className="items-center pb-0">
-              <CardTitle>Current Status of Available Problems</CardTitle>
-              <CardDescription>January - October 2024</CardDescription>
+              <CardTitle>현재 제공 가능한 문제의 상태</CardTitle>
+              <CardDescription>2024년 1월 - 10월</CardDescription>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
               <ChartContainer
-                config={chartConfig}
-                className="mx-auto aspect-square max-h-[250px]"
+                  config={chartConfig}
+                  className="mx-auto aspect-square max-h-[250px]"
               >
                 <PieChart>
                   <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent hideLabel />}
+                      cursor={false}
+                      content={<ChartTooltipContent hideLabel />}
                   />
                   <Pie
-                    data={chartData}
-                    dataKey="visitors"
-                    nameKey="browser"
-                    innerRadius={60}
-                    strokeWidth={5}
+                      data={chartData}
+                      dataKey="visitors"
+                      nameKey="browser"
+                      innerRadius={60}
+                      strokeWidth={5}
                   >
                     <Label
-                      content={({ viewBox }) => {
-                        if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                          return (
-                            <text
-                              x={viewBox.cx}
-                              y={viewBox.cy}
-                              textAnchor="middle"
-                              dominantBaseline="middle"
-                            >
-                              <tspan
-                                x={viewBox.cx}
-                                y={viewBox.cy}
-                                className="fill-foreground text-3xl font-bold"
-                              >
-                                {totalVisitors.toLocaleString()}
-                              </tspan>
-                              <tspan
-                                x={viewBox.cx}
-                                y={(viewBox.cy || 0) + 24}
-                                className="fill-muted-foreground"
-                              >
-                                Visitors
-                              </tspan>
-                            </text>
-                          );
-                        }
-                      }}
+                        content={({ viewBox }) => {
+                          if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                            return (
+                                <text
+                                    x={viewBox.cx}
+                                    y={viewBox.cy}
+                                    textAnchor="middle"
+                                    dominantBaseline="middle"
+                                >
+                                  <tspan
+                                      x={viewBox.cx}
+                                      y={viewBox.cy}
+                                      className="fill-foreground text-3xl font-bold"
+                                  >
+                                    {totalVisitors.toLocaleString()}
+                                  </tspan>
+                                  <tspan
+                                      x={viewBox.cx}
+                                      y={(viewBox.cy || 0) + 24}
+                                      className="fill-muted-foreground"
+                                  >
+                                    방문자
+                                  </tspan>
+                                </text>
+                            );
+                          }
+                        }}
                     />
                   </Pie>
                 </PieChart>
@@ -187,64 +187,66 @@ export default function Hero() {
             </CardContent>
             <CardFooter className="flex-col gap-2 text-sm">
               <div className="flex items-center gap-2 font-medium leading-none">
-                Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+                이번 달 5.2% 증가 <TrendingUp className="h-4 w-4" />
               </div>
               <div className="leading-none text-muted-foreground">
-                Showing total visitors for the last 6 months
+                최근 6개월 동안의 총 방문자 수
               </div>
             </CardFooter>
           </Card>
+
           {/* 라인 차트 추가 */}
           <Card className="flex-1">
             <CardHeader>
-              <CardTitle>Current Status of User Count</CardTitle>
-              <CardDescription>January - October 2024</CardDescription>
+              <CardTitle>현재 사용자 수 상태</CardTitle>
+              <CardDescription>2024년 1월 - 10월</CardDescription>
             </CardHeader>
             <CardContent>
               <ChartContainer config={lineChartConfig}>
                 <LineChart
-                  data={lineChartData}
-                  margin={{
-                    left: 12,
-                    right: 12,
-                  }}
+                    data={lineChartData}
+                    margin={{
+                      left: 12,
+                      right: 12,
+                    }}
                 >
                   <CartesianGrid vertical={false} />
                   <XAxis
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    tickFormatter={(value) => value.slice(0, 3)}
+                      dataKey="month"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={8}
+                      tickFormatter={(value) => value.slice(0, 3)}
                   />
                   <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent hideLabel />}
+                      cursor={false}
+                      content={<ChartTooltipContent hideLabel />}
                   />
                   <Line
-                    dataKey="desktop"
-                    type="natural"
-                    stroke="var(--color-desktop)"
-                    strokeWidth={2}
-                    dot={{
-                      fill: "var(--color-desktop)",
-                    }}
-                    activeDot={{
-                      r: 6,
-                    }}
+                      dataKey="desktop"
+                      type="natural"
+                      stroke="var(--color-desktop)"
+                      strokeWidth={2}
+                      dot={{
+                        fill: "var(--color-desktop)",
+                      }}
+                      activeDot={{
+                        r: 6,
+                      }}
                   />
                 </LineChart>
               </ChartContainer>
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-sm">
               <div className="flex gap-2 font-medium leading-none">
-                Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+                이번 달 5.2% 증가 <TrendingUp className="h-4 w-4" />
               </div>
               <div className="leading-none text-muted-foreground">
-                Monthly data on visitor numbers
+                월별 방문자 수 데이터
               </div>
             </CardFooter>
           </Card>
+
         </div>
       </div>
     </div>

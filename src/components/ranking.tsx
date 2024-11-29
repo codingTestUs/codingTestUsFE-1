@@ -12,22 +12,22 @@ type RankedItem = {
 };
 
 export default function RankingPage() {
-    const navigate = useNavigate(); // useNavigate ÈÅÀ» »ç¿ëÇÏ¿© navigate ÇÔ¼ö È£Ãâ
+    const navigate = useNavigate(); // useNavigate ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ navigate ï¿½Ô¼ï¿½ È£ï¿½ï¿½
     const [items, setItems] = useState<RankedItem[] | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(true); // ·Îµù »óÅÂ Ãß°¡
-    const [retry, setRetry] = useState<number>(0); // Àç½Ãµµ¸¦ À§ÇÑ »óÅÂ Ãß°¡
+    const [loading, setLoading] = useState<boolean>(true); // ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+    const [retry, setRetry] = useState<number>(0); // ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 
-    // API µ¥ÀÌÅÍ °¡Á®¿À±â
+    // API ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     useEffect(() => {
         const fetchUserInfo = async () => {
-            setLoading(true); // ·Îµù ½ÃÀÛ
-            setError(null); // ÀÌÀü ¿À·ù »óÅÂ ÃÊ±âÈ­
+            setLoading(true); // ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½
+            setError(null); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
             try {
                 const jwt = localStorage.getItem('jwt');
                 if (!jwt) {
-                    setError('There is no login information. Please log in again.');
+                    setError('ë¡œê·¸ì¸í•˜ì§€ ì•Šìœ¼ë©´ ì—´ëŒí•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
                     setLoading(false);
                     return;
                 }
@@ -41,40 +41,39 @@ export default function RankingPage() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    setItems(data); // ¼º°øÀûÀ¸·Î µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À¸é items »óÅÂ¸¦ ¾÷µ¥ÀÌÆ®
+                    setItems(data);
                 } else {
-                    setError('Failed to retrieve user ranking data.');
+                    setError('ì‚¬ìš©ì ìˆœìœ„ ë°ì´í„°ë¥¼ ê²€ìƒ‰í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.');
                 }
             } catch (err) {
-                console.error('API ¿äÃ» ¿À·ù:', err);
-                setError('À¯Àú µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À´Â Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.');
+                console.error('API ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½:', err);
+                setError('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.');
             } finally {
-                setLoading(false); // ·Îµù ¿Ï·á
+                setLoading(false);
             }
         };
 
         fetchUserInfo();
-    }, [retry]); // retry »óÅÂ°¡ º¯°æµÉ ¶§¸¶´Ù fetchUserInfo È£Ãâ
+    }, [retry]);
 
-    // ¿À·ù UI Ã³¸®
     if (error) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
                 <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-lg text-center">
-                    <h1 className="text-3xl font-bold text-red-500 mb-4">NONO ! </h1>
+                    <h1 className="text-3xl font-bold text-red-500 mb-4">ì£„ì†¡í•©ë‹ˆë‹¤. </h1>
                     <p className="text-gray-700 dark:text-gray-300 mb-6">{error}</p>
                     <button
-                        onClick={() => navigate('/')} // ¹öÆ° Å¬¸¯ ½Ã '/'·Î ¸®´ÙÀÌ·º¼Ç
+                        onClick={() => navigate('/')}
                         className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600"
                     >
-                        You Go Home
+                        ë©”ì¸í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ê¸°
                     </button>
                 </div>
             </div>
         );
     }
 
-    // ·Îµù UI Ã³¸®
+    // ï¿½Îµï¿½ UI Ã³ï¿½ï¿½
     if (loading) {
         return (
             <div>
@@ -95,13 +94,13 @@ export default function RankingPage() {
         }
     };
 
-    // Á¤»ó »óÅÂ UI
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI
     return (
         <>
             <Navbar />
             <div className="min-h-screen flex items-center justify-center p-4">
                 <div className="bg-gray-300 bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8 w-full max-w-2xl">
-                    <h1 className="text-5xl font-bold text-center mb-8">Solved Rankings</h1>
+                    <h1 className="text-5xl font-bold text-center mb-8">ì‚¬ìš©ì ë­í‚¹</h1>
                     <div className="flex justify-center space-x-6 mb-6">
                         <div className="flex items-center space-x-2">
                             <Trophy className="text-yellow-400" />

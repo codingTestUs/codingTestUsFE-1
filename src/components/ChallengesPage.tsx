@@ -58,7 +58,7 @@ export default function ChallengesPage() {
     });
 
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-    const [pageSize, setPageSize] = useState(6); // 페이지 크기
+    const [pageSize, setPageSize] = useState(9); // 페이지 크기
     const [totalPages, setTotalPages] = useState(1); // 총 페이지 수
 
     const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태 추가

@@ -13,45 +13,46 @@ const TeamMembers = () => {
     {
       name: "김승혁",
       role: "CEO",
-      description: "Leads the team with a vision for technical innovation and growth in coding test solutions.",
+      description: "코딩 테스트 솔루션의 기술 혁신과 성장을 이끌어가는 비전을 가진 팀 리더.",
       image: "https://avatars.githubusercontent.com/u/154569448?v=4",
     },
     {
       name: "남기훈",
       role: "CTO",
-      description: "Oversees the backend development and API design, ensuring robust and scalable architecture.",
+      description: "백엔드 개발과 API 디자인을 관리하며, 강력하고 확장 가능한 아키텍처를 보장.",
       image: "https://pbs.twimg.com/media/FNucpHEaAAMnAei?format=jpg&name=small",
     },
     {
       name: "윤준상",
-      role: "Head of Design",
-      description: "Responsible for creating intuitive and user-friendly interfaces, bridging front-end and back-end communication.",
+      role: "디자인 책임자",
+      description: "직관적이고 사용자 친화적인 인터페이스를 제작하며, 프론트엔드와 백엔드 간의 원활한 소통을 담당.",
       image: "https://item.kakaocdn.net/do/151c759dab8d916fd5097927c0d146fa9f17e489affba0627eb1eb39695f93dd",
     },
     {
       name: "김수연",
-      role: "Frontend Designer",
-      description: "Designs and implements the frontend interface, ensuring a seamless user experience and fixing any UI issues.",
+      role: "프론트엔드 디자이너",
+      description: "프론트엔드 인터페이스를 디자인하고 구현하여 원활한 사용자 경험을 제공하며, UI 문제를 해결.",
       image: "https://avatars.githubusercontent.com/u/125543409?v=4",
     },
     {
       name: "황수현",
-      role: "Admin Backend Developer",
-      description: "Assists in the backend development of the admin system, ensuring smooth operations for managing the platform.",
+      role: "관리자 백엔드 개발자",
+      description: "관리자 시스템의 백엔드 개발을 지원하며, 플랫폼 관리의 원활한 운영을 보장.",
       image: "https://img2.quasarzone.com/editor/2021/01/08/10d979ec0b1a9dc896db0b36d9697cf1.jpeg",
     },
     {
       name: "서연은",
-      role: "Researcher",
-      description: "Conducts in-depth research, gathering necessary information and resources to support the project development.",
+      role: "연구원",
+      description: "프로젝트 개발을 지원하기 위해 필요한 정보와 자료를 심층적으로 조사하고 수집.",
       image: "https://lh3.googleusercontent.com/proxy/XJ8NuLSdNBYXePM_v6m1GXy9s6Asaw50TVvfuwksEOetg-GCo2CZ5RHyHmKxAUFwUDU0WFmnTDX3t47yGkE7pR5fPcsvOJUzIHBjwfahirrbRIxQEeBfAm-fjwU1",
     },
     {
       name: "김민석",
-      role: "Researcher",
-      description: "Supports the research phase by analyzing market trends and gathering relevant information to guide project decisions.",
+      role: "연구원",
+      description: "시장 동향을 분석하고 프로젝트 결정을 이끌어내기 위한 관련 정보를 수집하여 연구 단계에서 지원.",
       image: "https://img.danawa.com/prod_img/500000/359/124/img/4124359_1.jpg?_v=20230801144124",
-    },
+    }
+
   ];
 
   return (
@@ -131,9 +132,6 @@ export default function Blogs() {
                 <h4 className="max-w-xl text-3xl tracking-tighter md:text-5xl font-regular">
                   Blogs
                 </h4>
-                <Button className="gap-4">
-                  View all articles <MoveRight className="w-4 h-4" />
-                </Button>
               </div>
               {/* Blog Items */}
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -179,59 +177,59 @@ export default function Blogs() {
                     Repository
                   </h2>
                   <p className="text-lg max-w-xl lg:max-w-xl leading-relaxed tracking-tight text-muted-foreground">
-                    Check out the code, backend development, and API management of our project below.
+                    아래에서 프로젝트의 코드, 백엔드 개발, API 관리를 확인해보세요.
                   </p>
                 </div>
                 <div className="flex gap-10 pt-12 flex-col w-full">
                   <div className="grid grid-cols-2 items-start lg:grid-cols-3 gap-10">
-                    {/* Frontend Repository */}
+                    {/* 프론트엔드 리포지토리 */}
                     <div className="flex flex-row gap-6 items-start">
                       <Check className="w-4 h-4 mt-2 text-primary" />
                       <div className="flex flex-col gap-1">
-                        <p>Frontend Repository</p>
+                        <p>프론트엔드 리포지토리</p>
                         <p className="text-muted-foreground text-sm">
-                          View the frontend repository where the client-side code is developed.
+                          클라이언트 사이드 코드가 개발된 프론트엔드 리포지토리를 확인하세요.
                         </p>
                         <a
                             href="https://github.com/codingTestUs/codingTestUsFE-1"
                             target="_blank"
                             className="text-primary"
                         >
-                          GitHub Link
+                          GitHub 링크
                         </a>
                       </div>
                     </div>
-                    {/* Backend Repository */}
+                    {/* 백엔드 리포지토리 */}
                     <div className="flex flex-row gap-6 items-start">
                       <Check className="w-4 h-4 mt-2 text-primary" />
                       <div className="flex flex-col gap-1">
-                        <p>Backend Repository</p>
+                        <p>백엔드 리포지토리</p>
                         <p className="text-muted-foreground text-sm">
-                          View the backend repository where the server-side code is developed.
+                          서버 사이드 코드가 개발된 백엔드 리포지토리를 확인하세요.
                         </p>
                         <a
                             href="https://github.com/ness727/code-challenge"
                             target="_blank"
                             className="text-primary"
                         >
-                          GitHub Link
+                          GitHub 링크
                         </a>
                       </div>
                     </div>
-                    {/* API Documentation */}
+                    {/* API 문서 */}
                     <div className="flex flex-row gap-6 items-start">
                       <Check className="w-4 h-4 mt-2 text-primary" />
                       <div className="flex flex-col gap-1">
-                        <p>API Documentation</p>
+                        <p>API 문서</p>
                         <p className="text-muted-foreground text-sm">
-                          View the API documentation to understand the endpoints and data structure.
+                          API 엔드포인트와 데이터 구조를 이해할 수 있는 API 문서를 확인하세요.
                         </p>
                         <a
                             href="https://documenter.getpostman.com/view/37125287/2sAXxMfYZ9"
                             target="_blank"
                             className="text-primary"
                         >
-                          API Docs Link
+                          API 문서 링크
                         </a>
                       </div>
                     </div>
@@ -241,6 +239,7 @@ export default function Blogs() {
             </div>
           </div>
         </div>
+
 
 
         {/* Last Section: Footer */}
