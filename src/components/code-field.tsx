@@ -25,6 +25,7 @@ export default function CodeField() {
         limitation: string; // 제한 조건
         inputOutput: string; // 입출력 예시
         returnType: string; // 리턴 타입
+        solved: string;
         params: { type: string, name: string }[]; // 파라미터 목록
     }
 
@@ -244,6 +245,16 @@ export default function CodeField() {
                             <fieldset className="grid gap-6 p-4 border rounded-lg">
                                 <legend className="inline-block px-1 -ml-1 text-sm font-medium">입출력 예시</legend>
                                 <p>{problem?.inputOutput}</p>
+                            </fieldset>
+
+                            {/* 문제 해결 여부 */}
+                            <fieldset className="grid gap-6 p-4 border rounded-lg">
+                                <legend className="inline-block px-1 -ml-1 text-sm font-medium">해결 여부</legend>
+                                {problem?.solved ? (
+                                    <p className="text-green-600 font-semibold">✅ 사용자가 이 문제를 해결했습니다.</p>
+                                ) : (
+                                    <p className="text-red-600 font-semibold">❌ 사용자가 이 문제를 아직 해결하지 않았습니다.</p>
+                                )}
                             </fieldset>
 
                             {/* 코드 실행 결과 */}
