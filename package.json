@@ -21,22 +21,32 @@
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
+    "@remix-run/router": "^1.21.0",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.3.0",
+    "embla-carousel-reactive-utils": "^8.5.1",
     "framer-motion": "^11.11.13",
     "lucide-react": "^0.447.0",
     "react": "^18.3.1",
     "react-cookie": "^7.2.2",
     "react-dom": "^18.3.1",
+    "react-remove-scroll": "^2.6.0",
+    "react-router": "^7.0.2",
     "react-router-dom": "^6.26.2",
+    "react-transition-group": "^4.4.5",
     "recharts": "^2.13.3",
     "recoil": "^0.7.7",
     "sheet": "^0.2.0",
     "tailwind-merge": "^2.5.2",
+<<<<<<< HEAD
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss-animate": "^1.0.7"
+=======
+    "tailwindcss-animate": "^1.0.7",
+    "victory-vendor": "^37.3.2"
+>>>>>>> c11fafb741f66de3f774eaf9f7fb7cc7fa383879
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

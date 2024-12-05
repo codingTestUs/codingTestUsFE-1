@@ -188,7 +188,7 @@ export default function Blogs() {
                       <div className="flex flex-col gap-1">
                         <p>프론트엔드 리포지토리</p>
                         <p className="text-muted-foreground text-sm">
-                          클라이언트 사이드 코드가 개발된 프론트엔드 리포지토리를 확인하세요.
+                          클라이언트 사이드 코드가 개발된 프론트엔드 리포지토리를 확인해보세요.
                         </p>
                         <a
                             href="https://github.com/codingTestUs/codingTestUsFE-1"
@@ -205,7 +205,7 @@ export default function Blogs() {
                       <div className="flex flex-col gap-1">
                         <p>백엔드 리포지토리</p>
                         <p className="text-muted-foreground text-sm">
-                          서버 사이드 코드가 개발된 백엔드 리포지토리를 확인하세요.
+                          서버 사이드 코드가 개발된 백엔드 리포지토리를 확인해보세요.
                         </p>
                         <a
                             href="https://github.com/ness727/code-challenge"
@@ -222,7 +222,7 @@ export default function Blogs() {
                       <div className="flex flex-col gap-1">
                         <p>API 문서</p>
                         <p className="text-muted-foreground text-sm">
-                          API 엔드포인트와 데이터 구조를 이해할 수 있는 API 문서를 확인하세요.
+                          API 엔드포인트와 데이터 구조를 이해할 수 있는 API 문서를 확인해보세요.
                         </p>
                         <a
                             href="https://documenter.getpostman.com/view/37125287/2sAXxMfYZ9"
