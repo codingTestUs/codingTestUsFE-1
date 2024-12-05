@@ -60,5 +60,8 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		require('tailwind-scrollbar'), // scrollbar 플러그인 추가
+	],
 };

@@ -1,7 +1,7 @@
-﻿import { useEffect, useState } from 'react';
+﻿import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
+import {useNavigate} from 'react-router-dom';
+import {Button} from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -9,7 +9,7 @@ import {
     CardHeader,
     CardTitle
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import {Input} from "@/components/ui/input";
 import {
     Select,
     SelectContent,
@@ -17,8 +17,8 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Code, GraduationCap, Github } from "lucide-react";
+import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {Code, GraduationCap, Github} from "lucide-react";
 import {
     Pagination,
     PaginationContent,
@@ -41,7 +41,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import Navbar from "./nav-bar";
 import Footer from "./footer";
-import { useLoginStateSync } from "@/state";
+import {useLoginStateSync} from "@/state";
 import "@/components/css/Challenges.css";
 
 export default function ChallengesPage() {
@@ -161,7 +161,7 @@ export default function ChallengesPage() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <Navbar />
+            <Navbar/>
 
             <main className="container flex-grow px-4 py-8 mx-auto">
                 <div className="mb-8">
@@ -182,7 +182,7 @@ export default function ChallengesPage() {
                     {/* Level filter */}
                     <Select onValueChange={(value) => setLevelFilter(value)}>
                         <SelectTrigger className="w-full md:w-[180px]">
-                            <SelectValue placeholder="Difficulty" />
+                            <SelectValue placeholder="Difficulty"/>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">All Levels</SelectItem>
@@ -197,7 +197,7 @@ export default function ChallengesPage() {
 
                     <Select onValueChange={(value) => handleSortChange(value)}>
                         <SelectTrigger className="w-full md:w-[180px]">
-                            <SelectValue placeholder="Sort by" />
+                            <SelectValue placeholder="Sort by"/>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="newest">Newest Solved</SelectItem>
@@ -210,36 +210,46 @@ export default function ChallengesPage() {
                 <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
                     {apiResponse?.content?.length > 0 ? (
                         apiResponse.content.map((problem, index) => (
-                            <Card key={index}>
+                            <Card
+                                key={index}
+                                className="border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow"
+                            >
                                 <CardHeader>
                                     <CardTitle className="flex items-center justify-between">
-                                        <span className="text-xl">{problem.title}</span>
-                                        <span className="text-sm font-normal text-gray-500 dark:text-white">
-                                            {problem.level}
-                                        </span>
+            <span className="text-xl font-semibold text-gray-800 dark:text-gray-100">
+              {problem.title}
+            </span>
+                                        <span className="text-sm font-normal text-gray-600 dark:text-gray-300">
+              {problem.level}
+            </span>
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-white">
+                                    <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
+            <span className="flex items-center">
+              <Code className="w-4 h-4 mr-1 text-gray-500 dark:text-gray-400" />
+              Java
+            </span>
                                         <span className="flex items-center">
-                                            <Code className="w-4 h-4 mr-1" />
-                                            Java
-                                        </span>
-                                        <span className="flex items-center">
-                                            <GraduationCap className="w-4 h-4 mr-1" />
+              <GraduationCap className="w-4 h-4 mr-1 text-gray-500 dark:text-gray-400" />
                                             {problem.correctRate}%
-                                        </span>
+            </span>
                                     </div>
                                 </CardContent>
                                 <CardFooter>
                                     {isLoggedIn ? (
-                                        <Button className="w-full" onClick={() => navigate(`/codefield/${problem.id}`)}>
+                                        <Button
+                                            className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+                                            onClick={() => navigate(`/codefield/${problem.id}`)}
+                                        >
                                             Start Challenge
                                         </Button>
                                     ) : (
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
-                                                <Button variant="outline" className="w-full">로그인하셈용</Button>
+                                                <Button variant="outline" className="w-full">
+                                                    로그인하셈용
+                                                </Button>
                                             </AlertDialogTrigger>
                                             <AlertDialogContent>
                                                 <AlertDialogHeader>
@@ -277,7 +287,7 @@ export default function ChallengesPage() {
                                 Previous
                             </a>
                         </li>
-                        {Array.from({ length: totalPages }, (_, index) => (
+                        {Array.from({length: totalPages}, (_, index) => (
                             <li key={index}>
                                 <a
                                     href="#"
@@ -301,7 +311,7 @@ export default function ChallengesPage() {
                 </div>
 
             </main>
-            <Footer />
+            <Footer/>
         </div>
     );
 }

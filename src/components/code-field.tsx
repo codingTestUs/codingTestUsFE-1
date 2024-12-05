@@ -49,7 +49,7 @@ export default function CodeField() {
         System.out.println("Java 실행 Hello!!!");
         return ;
     }
- }`;
+}`;
     };
 
     // 초기화 코드 설정
@@ -263,36 +263,40 @@ export default function CodeField() {
                                     <legend className="inline-block px-1 -ml-1 text-sm font-medium">코드 실행 결과</legend>
                                     <p>{result.message}</p>
                                     <p>총 걸린 시간: {result.totalTime}ms</p>
-                                    <table className="w-full border-collapse">
-                                        <thead>
-                                        <tr>
-                                                <th className="px-4 py-2 border">테스트 케이스</th>
-                                                <th className="px-4 py-2 border">파라미터</th>
-                                            <th className="px-4 py-2 border">정답</th>
-                                            <th className="px-4 py-2 border">제출한 답</th>
-                                            <th className="px-4 py-2 border">걸린 시간</th>
-                                            <th className="px-4 py-2 border">결과</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {result.testCases.map((testCase, index) => (
-                                            <tr key={index}>
-                                                <td className="px-4 py-2 border">{index + 1}</td>
-                                                <td className="px-4 py-2 border">{testCase.pramData}</td>
-                                                <td className="px-4 py-2 border">{testCase.testcaseAnswer}</td>
-                                                <td className="px-4 py-2 border">{testCase.userAnswer}</td>
-                                                <td className="px-4 py-2 border">{testCase.runtime}</td>
-                                                <td className="px-4 py-2 border">
-                                                    {testCase.isCorrect ? (
-                                                        <Check size={18} className="text-green-500" />
-                                                    ) : (
-                                                        <CircleAlert size={18} className="text-red-500" />
-                                                    )}
-                                                </td>
+
+                                    {/* 테이블 컨테이너 */}
+                                    <div className="w-full overflow-x-auto overflow-y-auto max-h-[400px] scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+                                        <table className="w-full border-collapse">
+                                            <thead>
+                                            <tr>
+                                                <th className="px-4 py-2 border truncate">테스트 케이스</th>
+                                                <th className="px-4 py-2 border truncate">파라미터</th>
+                                                <th className="px-4 py-2 border truncate">정답</th>
+                                                <th className="px-4 py-2 border truncate">제출한 답</th>
+                                                <th className="px-4 py-2 border truncate">걸린 시간</th>
+                                                <th className="px-4 py-2 border truncate">결과</th>
                                             </tr>
-                                        ))}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                            {result.testCases.map((testCase, index) => (
+                                                <tr key={index}>
+                                                    <td className="px-4 py-2 border">{index + 1}</td>
+                                                    <td className="px-4 py-2 border">{testCase.pramData}</td>
+                                                    <td className="px-4 py-2 border">{testCase.testcaseAnswer}</td>
+                                                    <td className="px-4 py-2 border">{testCase.userAnswer}</td>
+                                                    <td className="px-4 py-2 border">{testCase.runtime}</td>
+                                                    <td className="px-4 py-2 border">
+                                                        {testCase.isCorrect ? (
+                                                            <Check size={18} className="text-green-500" />
+                                                        ) : (
+                                                            <CircleAlert size={18} className="text-red-500" />
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </fieldset>
                             )}
                         </div>
