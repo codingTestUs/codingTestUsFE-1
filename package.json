@@ -40,13 +40,9 @@
     "recoil": "^0.7.7",
     "sheet": "^0.2.0",
     "tailwind-merge": "^2.5.2",
-<<<<<<< HEAD
     "tailwind-scrollbar": "^3.1.0",
-    "tailwindcss-animate": "^1.0.7"
-=======
     "tailwindcss-animate": "^1.0.7",
     "victory-vendor": "^37.3.2"
->>>>>>> c11fafb741f66de3f774eaf9f7fb7cc7fa383879
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

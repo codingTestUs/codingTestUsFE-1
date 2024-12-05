@@ -265,7 +265,8 @@ export default function CodeField() {
                                     <p>총 걸린 시간: {result.totalTime}ms</p>
 
                                     {/* 테이블 컨테이너 */}
-                                    <div className="w-full overflow-x-auto overflow-y-auto max-h-[400px] scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+                                    {/* 테이블 컨테이너 */}
+                                    <div className="w-full overflow-x-auto overflow-y-auto max-h-[400px] scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-black scrollbar-thumb-rounded-lg scrollbar-track-rounded-lg">
                                         <table className="w-full border-collapse">
                                             <thead>
                                             <tr>
@@ -297,6 +298,7 @@ export default function CodeField() {
                                             </tbody>
                                         </table>
                                     </div>
+
                                 </fieldset>
                             )}
                         </div>

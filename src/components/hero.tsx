@@ -108,7 +108,9 @@ export default function Hero() {
                 <span className="text-4xl tracking-normal">AI 기반 코딩 테스트 문제</span>
               </h1>
               <p className="max-w-md text-xl leading-relaxed tracking-tight text-left text-muted-foreground">
-              저희는 다양한 데이터를 API로 수집하고, 이를 학습한 AI 모델을 통해 고품질의 코딩 테스트 문제를 생성하여 제공합니다.
+              저희는 다양한 데이터를 API로 수집하고,
+                <br/> 학습한 AI 모델을 통해 고품질의 코딩 테스트
+                <br/>문제를 생성하여 제공합니다.
               </p>
             </div>
             <div className="flex flex-row gap-4">
