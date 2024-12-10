@@ -248,7 +248,7 @@ export default function ChallengesPage() {
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
                                                 <Button variant="outline" className="w-full">
-                                                    로그인하셈용
+                                                    로그인이 필요합니다.
                                                 </Button>
                                             </AlertDialogTrigger>
                                             <AlertDialogContent>

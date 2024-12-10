@@ -272,8 +272,6 @@ export default function CodeField() {
                                             <tr>
                                                 <th className="px-4 py-2 border truncate">테스트 케이스</th>
                                                 <th className="px-4 py-2 border truncate">파라미터</th>
-                                                <th className="px-4 py-2 border truncate">정답</th>
-                                                <th className="px-4 py-2 border truncate">제출한 답</th>
                                                 <th className="px-4 py-2 border truncate">걸린 시간</th>
                                                 <th className="px-4 py-2 border truncate">결과</th>
                                             </tr>
@@ -283,8 +281,6 @@ export default function CodeField() {
                                                 <tr key={index}>
                                                     <td className="px-4 py-2 border">{index + 1}</td>
                                                     <td className="px-4 py-2 border">{testCase.pramData}</td>
-                                                    <td className="px-4 py-2 border">{testCase.testcaseAnswer}</td>
-                                                    <td className="px-4 py-2 border">{testCase.userAnswer}</td>
                                                     <td className="px-4 py-2 border">{testCase.runtime}</td>
                                                     <td className="px-4 py-2 border">
                                                         {testCase.isCorrect ? (
